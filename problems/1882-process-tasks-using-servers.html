@@ -12,7 +12,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@400;600;700&family=Noto+Sans+TC:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/style.css">
 </head>
-<body>
+<body data-root="../">
 <header class="nav" id="nav">
   <a class="nav-brand" href="../index.html"><img src="../assets/avatar.svg" alt="">每日 LeetCode 筆記</a>
   <nav class="nav-links" id="nav-links">
@@ -20,9 +20,11 @@
     <a href="../index.html#%E7%B6%93%E5%85%B8%E9%A1%8C"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h6l2 2h10v11H3z"/></svg>經典題</a>
     <a href="../index.html#%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A1%8C"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h6l2 2h10v11H3z"/></svg>每日一題</a>
     <a href="../index.html#%E5%8B%95%E6%85%8B%E8%A6%8F%E5%8A%83%E5%88%B7%E9%A1%8C%E5%96%AE"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h6l2 2h10v11H3z"/></svg>動態規劃刷題單</a>
+    <a href="../about.html"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg>關於</a>
     <a href="https://www.youtube.com/@nn-leetcode" target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9l5 3-5 3z" fill="currentColor"/></svg>YouTube</a>
   </nav>
   <div class="nav-tools">
+    <button class="icon-btn" id="search-btn" type="button" aria-label="搜尋（Ctrl+K）"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg></button>
     <button class="icon-btn" id="theme-btn" type="button" aria-label="切換深色模式"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></svg></button>
     <button class="icon-btn nav-menu" id="menu-btn" type="button" aria-label="選單" aria-expanded="false"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
   </div>
@@ -52,9 +54,10 @@
   </div>
   <nav class="side-nav">
     <a class="" href="../index.html"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/></svg>首頁</a>
-    <a class="" href="../index.html#%E7%B6%93%E5%85%B8%E9%A1%8C" data-series-link="經典題"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h6l2 2h10v11H3z"/></svg>經典題</a>
-    <a class="on" href="../index.html#%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A1%8C" data-series-link="每日一題"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h6l2 2h10v11H3z"/></svg>每日一題</a>
-    <a class="" href="../index.html#%E5%8B%95%E6%85%8B%E8%A6%8F%E5%8A%83%E5%88%B7%E9%A1%8C%E5%96%AE" data-series-link="動態規劃刷題單"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h6l2 2h10v11H3z"/></svg>動態規劃刷題單</a>
+    <a class="" href="../index.html#%E7%B6%93%E5%85%B8%E9%A1%8C" data-series-link="經典題"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h6l2 2h10v11H3z"/></svg>經典題<em>1</em></a>
+    <a class="on" href="../index.html#%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A1%8C" data-series-link="每日一題"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h6l2 2h10v11H3z"/></svg>每日一題<em>3</em></a>
+    <a class="" href="../index.html#%E5%8B%95%E6%85%8B%E8%A6%8F%E5%8A%83%E5%88%B7%E9%A1%8C%E5%96%AE" data-series-link="動態規劃刷題單"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h6l2 2h10v11H3z"/></svg>動態規劃刷題單<em>3</em></a>
+    <a class="" href="../about.html"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg>關於</a>
   </nav>
 </div>
 <div class="side-card widget toc">
@@ -107,6 +110,14 @@ public:
   <div>© 2026 每日leetcode · 影片在 <a href="https://www.youtube.com/@nn-leetcode" target="_blank" rel="noopener">YouTube</a> · 原始碼在 <a href="https://github.com/10360555iamnn/leetcode-notes" target="_blank" rel="noopener">GitHub</a></div>
   <div class="foot-small">版面參考 hugo-theme-reimu（MIT） · 解答使用 C++</div>
 </footer>
+<div class="search" id="search" hidden>
+  <div class="search-box" role="dialog" aria-modal="true" aria-label="搜尋">
+    <div class="search-head"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input id="search-input" type="search" placeholder="搜尋題號、題名、標籤…（例如 1882、堆積、DP）" autocomplete="off"><button class="icon-btn" id="search-close" type="button" aria-label="關閉"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+    <ul class="search-results" id="search-results"></ul>
+    <div class="search-foot"><span><kbd>↑</kbd><kbd>↓</kbd> 選擇</span><span><kbd>Enter</kbd> 開啟</span><span><kbd>Esc</kbd> 關閉</span></div>
+  </div>
+</div>
+<script src="../assets/search-index.js"></script>
 <script src="../assets/site.js"></script>
 </body>
 </html>
