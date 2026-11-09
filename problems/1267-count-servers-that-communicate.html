@@ -5,22 +5,74 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>1267. Count Servers that Communicate 統計參與通信的伺服器 · 每日 LeetCode 筆記</title>
 <meta name="description" content="先數每一列、每一行各有幾台伺服器；一台伺服器只要所在的列或行超過一台，就能通訊。也介紹看成圖、DFS、並查集的另解。">
+<link rel="icon" href="../assets/avatar.svg" type="image/svg+xml">
+<script>try{var t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC:wght@400;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Mulish:wght@400;600;700&family=Noto+Sans+TC:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/style.css">
 </head>
 <body>
-<header class="top"><a class="brand" href="../index.html">每日 LeetCode 筆記</a><nav><a href="../index.html">全部影片</a><a href="https://www.youtube.com/@nn-leetcode" target="_blank" rel="noopener">YouTube 頻道</a></nav></header>
-<main class="page">
-<article class="sheet">
-  <p class="crumb"><span class="series">每日一題</span><span class="date">2026-11-08</span></p>
-  <h1>1267. Count Servers that Communicate</h1>
-  <p class="zh">統計參與通信的伺服器 <span class="lv medium">Medium</span></p>
-  <p class="links"><a class="lc" href="https://leetcode.com/problems/count-servers-that-communicate/" target="_blank" rel="noopener">LeetCode 1267 ↗</a><a class="yt" href="https://www.youtube.com/watch?v=roRgkzN0-SY" target="_blank" rel="noopener">在 YouTube 觀看 ↗</a></p>
-  <div class="video"><iframe src="https://www.youtube-nocookie.com/embed/roRgkzN0-SY" title="1267. Count Servers that Communicate" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
-  <section class="note"><h2>重點</h2><p>先數每一列、每一行各有幾台伺服器；一台伺服器只要所在的列或行超過一台，就能通訊。也介紹看成圖、DFS、並查集的另解。</p><p class="tags"><span>計數</span><span>矩陣</span></p></section>
-  <section class="code"><h2>C++ 解答 <a class="dl" href="../solutions/1267-count-servers-that-communicate.cpp" download>下載 .cpp</a></h2><div class="pane" data-pane="0"><button class="copy" type="button">複製</button><pre><code class="language-cpp">class Solution {
+<header class="nav" id="nav">
+  <a class="nav-brand" href="../index.html"><img src="../assets/avatar.svg" alt="">每日 LeetCode 筆記</a>
+  <nav class="nav-links" id="nav-links">
+    <a href="../index.html"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/></svg>首頁</a>
+    <a href="../index.html#%E7%B6%93%E5%85%B8%E9%A1%8C"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h6l2 2h10v11H3z"/></svg>經典題</a>
+    <a href="../index.html#%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A1%8C"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h6l2 2h10v11H3z"/></svg>每日一題</a>
+    <a href="../index.html#%E5%8B%95%E6%85%8B%E8%A6%8F%E5%8A%83%E5%88%B7%E9%A1%8C%E5%96%AE"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h6l2 2h10v11H3z"/></svg>動態規劃刷題單</a>
+    <a href="https://www.youtube.com/@nn-leetcode" target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9l5 3-5 3z" fill="currentColor"/></svg>YouTube</a>
+  </nav>
+  <div class="nav-tools">
+    <button class="icon-btn" id="theme-btn" type="button" aria-label="切換深色模式"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></svg></button>
+    <button class="icon-btn nav-menu" id="menu-btn" type="button" aria-label="選單" aria-expanded="false"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+  </div>
+</header>
+<section class="banner post-banner" style="--banner:url('img/1267-count-servers-that-communicate.jpg')">
+  <div class="banner-inner">
+    <h1>1267. Count Servers that Communicate</h1>
+    <p class="banner-sub">統計參與通信的伺服器</p>
+    <div class="art-meta">
+      <span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>2026-11-08</span><span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>10 分鐘</span><span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 8l-5 4 5 4M16 8l5 4-5 4M14 5l-4 14"/></svg>1 段程式碼</span><span class="lv medium">Medium</span>
+    </div>
+  </div>
+</section>
+<div class="container">
+<aside class="sidebar"><div class="sticky"><div class="side-card profile">
+  <img class="avatar" src="../assets/avatar.svg" alt="頭像">
+  <div class="author">每日leetcode</div>
+  <div class="bio">用手寫筆記講解 LeetCode</div>
+  <div class="stats">
+    <a href="../index.html"><span>影片</span><b>7</b></a>
+    <a href="../index.html#categories"><span>系列</span><b>3</b></a>
+    <a href="../index.html"><span>題目</span><b>10</b></a>
+  </div>
+  <div class="social">
+    <a href="https://www.youtube.com/@nn-leetcode" target="_blank" rel="noopener" aria-label="YouTube"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9l5 3-5 3z" fill="currentColor"/></svg></a>
+    <a href="https://github.com/10360555iamnn/leetcode-notes" target="_blank" rel="noopener" aria-label="GitHub"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-4 1.5-4-2-6-2.5M15 21v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1-.3-3.4 1.3a11.6 11.6 0 0 0-6 0C6.8 2.8 5.8 3.1 5.8 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4.4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg></a>
+  </div>
+  <nav class="side-nav">
+    <a class="" href="../index.html"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/></svg>首頁</a>
+    <a class="" href="../index.html#%E7%B6%93%E5%85%B8%E9%A1%8C" data-series-link="經典題"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h6l2 2h10v11H3z"/></svg>經典題</a>
+    <a class="on" href="../index.html#%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A1%8C" data-series-link="每日一題"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h6l2 2h10v11H3z"/></svg>每日一題</a>
+    <a class="" href="../index.html#%E5%8B%95%E6%85%8B%E8%A6%8F%E5%8A%83%E5%88%B7%E9%A1%8C%E5%96%AE" data-series-link="動態規劃刷題單"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h6l2 2h10v11H3z"/></svg>動態規劃刷題單</a>
+  </nav>
+</div>
+<div class="side-card widget toc">
+  <h3><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg>目錄</h3>
+  <ol><li><a href="#video">講解影片</a></li><li><a href="#notes">重點整理</a></li><li><a href="#code">C++ 解答</a></li></ol>
+</div>
+</div></aside>
+<main class="main">
+  <article class="article">
+    <p class="art-cat"><a href="../index.html#%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A1%8C"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h6l2 2h10v11H3z"/></svg>每日一題</a></p>
+    <h2 class="sec" id="video">講解影片</h2>
+    <div class="video"><iframe src="https://www.youtube-nocookie.com/embed/roRgkzN0-SY" title="1267. Count Servers that Communicate" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
+    <p class="art-links"><a class="btn lc" href="https://leetcode.com/problems/count-servers-that-communicate/" target="_blank" rel="noopener">LeetCode 1267 <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v6H4V6h6"/></svg></a><a class="btn yt" href="https://www.youtube.com/watch?v=roRgkzN0-SY" target="_blank" rel="noopener">在 YouTube 觀看 <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v6H4V6h6"/></svg></a></p>
+    <h2 class="sec" id="notes">重點整理</h2>
+    <p>先數每一列、每一行各有幾台伺服器；一台伺服器只要所在的列或行超過一台，就能通訊。也介紹看成圖、DFS、並查集的另解。</p>
+    <p class="art-tags"><a href="../index.html#tag%3A%E8%A8%88%E6%95%B8"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12V3h9l9 9-9 9z"/><circle cx="8" cy="8" r="1.5"/></svg>計數</a><a href="../index.html#tag%3A%E7%9F%A9%E9%99%A3"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12V3h9l9 9-9 9z"/><circle cx="8" cy="8" r="1.5"/></svg>矩陣</a></p>
+    <h2 class="sec" id="code">C++ 解答 <a class="dl" href="../solutions/1267-count-servers-that-communicate.cpp" download>下載 .cpp</a></h2>
+    <div class="code"><div class="pane" data-pane="0"><div class="pane-bar"><span class="dots"><i></i><i></i><i></i></span><span>C++ · 解答</span><button class="copy" type="button">複製</button></div><pre><code class="language-cpp">class Solution {
 public:
     int countServers(vector&lt;vector&lt;int&gt;&gt;&amp; grid) {
         int m = grid.size(), n = grid[0].size();
@@ -39,10 +91,18 @@ public:
         return ans;
     }
 };
-</code></pre></div></section>
-</article>
+</code></pre></div></div>
+  </article>
+  <nav class="art-nav">
+      <a class="prev" href="1882-process-tasks-using-servers.html" style="--cover:url('img/1882-process-tasks-using-servers.jpg')"><small><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>上一篇</small><b>1882. Process Tasks Using Servers</b></a>
+      <a class="next" href="1606-find-servers-that-handled-most-requests.html" style="--cover:url('img/1606-find-servers-that-handled-most-requests.jpg')"><small>下一篇<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></small><b>1606. Find Servers That Handled Most Number of Requests</b></a>
+    </nav>
 </main>
-<footer class="foot">影片與程式碼：<a href="https://www.youtube.com/@nn-leetcode" target="_blank" rel="noopener">@nn-leetcode</a> · 解答使用 C++</footer>
+</div>
+<footer class="foot">
+  <div>© 2026 每日leetcode · 影片在 <a href="https://www.youtube.com/@nn-leetcode" target="_blank" rel="noopener">YouTube</a> · 原始碼在 <a href="https://github.com/10360555iamnn/leetcode-notes" target="_blank" rel="noopener">GitHub</a></div>
+  <div class="foot-small">版面參考 hugo-theme-reimu（MIT） · 解答使用 C++</div>
+</footer>
 <script src="../assets/site.js"></script>
 </body>
 </html>

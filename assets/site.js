@@ -1,29 +1,82 @@
-// 首頁篩選
-document.querySelectorAll('.filters button').forEach(b => b.addEventListener('click', () => {
-  document.querySelectorAll('.filters button').forEach(x => x.setAttribute('aria-pressed', String(x === b)));
-  const f = b.dataset.f;
-  document.querySelectorAll('.card').forEach(c => { c.hidden = f !== 'all' && c.dataset.series !== f; });
-}));
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+
+// 深色模式切換（記在這台瀏覽器）
+$('#theme-btn')?.addEventListener('click', () => {
+  const root = document.documentElement;
+  const dark = root.dataset.theme ? root.dataset.theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+  root.dataset.theme = dark ? 'light' : 'dark';
+  try { localStorage.setItem('theme', root.dataset.theme); } catch {}
+});
+
+// 手機選單
+$('#menu-btn')?.addEventListener('click', e => {
+  const open = $('#nav-links').classList.toggle('open');
+  e.currentTarget.setAttribute('aria-expanded', String(open));
+});
+
+// 往下捲時藏起導覽列，往上捲再出現
+let lastY = scrollY;
+addEventListener('scroll', () => {
+  const y = scrollY;
+  $('#nav')?.classList.toggle('hide', y > lastY && y > 200 && !$('#nav-links').classList.contains('open'));
+  lastY = y;
+}, { passive: true });
+
+// 首頁：依網址 #系列 或 #tag:標籤 篩選
+function applyFilter() {
+  const posts = $$('.post');
+  if (!posts.length) return;
+  const key = decodeURIComponent(location.hash.slice(1));
+  const isTag = key.startsWith('tag:'), val = isTag ? key.slice(4) : key;
+  const valid = val && val !== 'categories' && posts.some(p => (isTag ? p.dataset.tags.split('|') : [p.dataset.series]).includes(val));
+  let n = 0;
+  posts.forEach(p => {
+    const show = !valid || (isTag ? p.dataset.tags.split('|').includes(val) : p.dataset.series === val);
+    p.hidden = !show; if (show) n++;
+  });
+  // 篩選後重新左右交錯
+  posts.filter(p => !p.hidden).forEach((p, i) => { p.classList.toggle('left', i % 2 === 0); p.classList.toggle('right', i % 2 === 1); });
+  const head = $('#cat-head');
+  head.hidden = !valid;
+  if (valid) { $('#cat-title').textContent = (isTag ? '# ' : '') + val; $('#cat-count').textContent = `${n} 支影片`; }
+  $$('.side-nav a').forEach(a => a.classList.toggle('on', valid ? a.dataset.seriesLink === val : !a.dataset.seriesLink));
+  if (valid) head.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  $('#nav-links')?.classList.remove('open');
+}
+addEventListener('hashchange', applyFilter);
+applyFilter();
 
 // 程式碼分頁
-document.querySelectorAll('.tabs button').forEach(b => b.addEventListener('click', () => {
-  const box = b.closest('.code');
-  box.querySelectorAll('.tabs button').forEach(x => x.setAttribute('aria-selected', String(x === b)));
-  box.querySelectorAll('.pane').forEach(p => { p.hidden = p.dataset.pane !== b.dataset.tab; });
-}));
+function showTab(box, i) {
+  $$('.tabs button', box).forEach(b => b.setAttribute('aria-selected', String(b.dataset.tab === String(i))));
+  $$('.pane', box).forEach(p => { p.hidden = p.dataset.pane !== String(i); });
+}
+$$('.tabs button').forEach(b => b.addEventListener('click', () => showTab(b.closest('.code'), b.dataset.tab)));
+$$('[data-goto-tab]').forEach(a => a.addEventListener('click', () => { const box = $('.code'); if (box) showTab(box, a.dataset.gotoTab); }));
+
+// 目錄：捲動時標出目前段落
+const secs = $$('.sec');
+if (secs.length && $('.toc')) {
+  const links = $$('.toc li:not(.sub) a');
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting) links.forEach(a => a.classList.toggle('on', a.getAttribute('href') === '#' + e.target.id));
+  }), { rootMargin: '-80px 0px -60% 0px' });
+  secs.forEach(s => io.observe(s));
+}
 
 // 複製按鈕
-document.querySelectorAll('.copy').forEach(b => b.addEventListener('click', async () => {
-  const txt = b.parentElement.querySelector('code').innerText;
+$$('.copy').forEach(b => b.addEventListener('click', async () => {
+  const txt = b.closest('.pane').querySelector('code').innerText;
   try { await navigator.clipboard.writeText(txt); b.textContent = '已複製！'; }
   catch { b.textContent = '複製失敗'; }
   setTimeout(() => { b.textContent = '複製'; }, 1500);
 }));
 
 // C++ 語法上色（highlight.js，載入失敗也不影響閱讀）
-if (document.querySelector('pre code')) {
+if ($('pre code')) {
   const s = document.createElement('script');
   s.src = 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js';
-  s.onload = () => document.querySelectorAll('pre code').forEach(el => window.hljs.highlightElement(el));
+  s.onload = () => $$('pre code').forEach(el => window.hljs.highlightElement(el));
   document.head.appendChild(s);
 }

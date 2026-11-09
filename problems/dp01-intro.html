@@ -5,26 +5,78 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>DP 刷題單 #1 · 入門 509 · 1137 · 70 · 746 · 每日 LeetCode 筆記</title>
 <meta name="description" content="從費氏數列認識動態規劃：遞迴 → 記憶化 → 由下而上填表 → 滾動變數。再用同一套想法解泰波那契、爬樓梯和最小花費爬樓梯。">
+<link rel="icon" href="../assets/avatar.svg" type="image/svg+xml">
+<script>try{var t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC:wght@400;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Mulish:wght@400;600;700&family=Noto+Sans+TC:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/style.css">
 </head>
 <body>
-<header class="top"><a class="brand" href="../index.html">每日 LeetCode 筆記</a><nav><a href="../index.html">全部影片</a><a href="https://www.youtube.com/@nn-leetcode" target="_blank" rel="noopener">YouTube 頻道</a></nav></header>
-<main class="page">
-<article class="sheet">
-  <p class="crumb"><span class="series">動態規劃刷題單</span><span class="date">2026-11-08</span></p>
-  <h1>DP 刷題單 #1 · 入門</h1>
-  <p class="zh">509 · 1137 · 70 · 746 <span class="lv easy">Easy</span></p>
-  <p class="links"><a class="lc" href="https://leetcode.com/problems/fibonacci-number/" target="_blank" rel="noopener">LeetCode 509 ↗</a><a class="lc" href="https://leetcode.com/problems/n-th-tribonacci-number/" target="_blank" rel="noopener">LeetCode 1137 ↗</a><a class="lc" href="https://leetcode.com/problems/climbing-stairs/" target="_blank" rel="noopener">LeetCode 70 ↗</a><a class="lc" href="https://leetcode.com/problems/min-cost-climbing-stairs/" target="_blank" rel="noopener">LeetCode 746 ↗</a><a class="yt" href="https://www.youtube.com/watch?v=YIF6CpbAWoM" target="_blank" rel="noopener">在 YouTube 觀看 ↗</a></p>
-  <div class="video"><iframe src="https://www.youtube-nocookie.com/embed/YIF6CpbAWoM" title="DP 刷題單 #1 · 入門" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
-  <section class="note"><h2>重點</h2><p>從費氏數列認識動態規劃：遞迴 → 記憶化 → 由下而上填表 → 滾動變數。再用同一套想法解泰波那契、爬樓梯和最小花費爬樓梯。</p><p class="tags"><span>動態規劃</span><span>記憶化</span></p></section>
-  <section class="code"><h2>C++ 解答 <a class="dl" href="../solutions/dp01-intro.cpp" download>下載 .cpp</a></h2><div class="tabs" role="tablist"><button role="tab" aria-selected="true" data-tab="0">509 遞迴</button><button role="tab" aria-selected="false" data-tab="1">509 記憶化</button><button role="tab" aria-selected="false" data-tab="2">509 由下而上</button><button role="tab" aria-selected="false" data-tab="3">509 滾動變數</button><button role="tab" aria-selected="false" data-tab="4">1137 泰波那契</button><button role="tab" aria-selected="false" data-tab="5">70 爬樓梯</button><button role="tab" aria-selected="false" data-tab="6">746 最小花費爬樓梯</button></div><div class="pane" data-pane="0"><button class="copy" type="button">複製</button><pre><code class="language-cpp">int fib(int n) {
+<header class="nav" id="nav">
+  <a class="nav-brand" href="../index.html"><img src="../assets/avatar.svg" alt="">每日 LeetCode 筆記</a>
+  <nav class="nav-links" id="nav-links">
+    <a href="../index.html"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/></svg>首頁</a>
+    <a href="../index.html#%E7%B6%93%E5%85%B8%E9%A1%8C"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h6l2 2h10v11H3z"/></svg>經典題</a>
+    <a href="../index.html#%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A1%8C"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h6l2 2h10v11H3z"/></svg>每日一題</a>
+    <a href="../index.html#%E5%8B%95%E6%85%8B%E8%A6%8F%E5%8A%83%E5%88%B7%E9%A1%8C%E5%96%AE"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h6l2 2h10v11H3z"/></svg>動態規劃刷題單</a>
+    <a href="https://www.youtube.com/@nn-leetcode" target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9l5 3-5 3z" fill="currentColor"/></svg>YouTube</a>
+  </nav>
+  <div class="nav-tools">
+    <button class="icon-btn" id="theme-btn" type="button" aria-label="切換深色模式"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></svg></button>
+    <button class="icon-btn nav-menu" id="menu-btn" type="button" aria-label="選單" aria-expanded="false"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+  </div>
+</header>
+<section class="banner post-banner" style="--banner:url('img/dp01-intro.jpg')">
+  <div class="banner-inner">
+    <h1>DP 刷題單 #1 · 入門</h1>
+    <p class="banner-sub">509 · 1137 · 70 · 746</p>
+    <div class="art-meta">
+      <span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>2026-11-08</span><span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>11 分鐘</span><span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 8l-5 4 5 4M16 8l5 4-5 4M14 5l-4 14"/></svg>7 段程式碼</span><span class="lv easy">Easy</span>
+    </div>
+  </div>
+</section>
+<div class="container">
+<aside class="sidebar"><div class="sticky"><div class="side-card profile">
+  <img class="avatar" src="../assets/avatar.svg" alt="頭像">
+  <div class="author">每日leetcode</div>
+  <div class="bio">用手寫筆記講解 LeetCode</div>
+  <div class="stats">
+    <a href="../index.html"><span>影片</span><b>7</b></a>
+    <a href="../index.html#categories"><span>系列</span><b>3</b></a>
+    <a href="../index.html"><span>題目</span><b>10</b></a>
+  </div>
+  <div class="social">
+    <a href="https://www.youtube.com/@nn-leetcode" target="_blank" rel="noopener" aria-label="YouTube"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9l5 3-5 3z" fill="currentColor"/></svg></a>
+    <a href="https://github.com/10360555iamnn/leetcode-notes" target="_blank" rel="noopener" aria-label="GitHub"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-4 1.5-4-2-6-2.5M15 21v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1-.3-3.4 1.3a11.6 11.6 0 0 0-6 0C6.8 2.8 5.8 3.1 5.8 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4.4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg></a>
+  </div>
+  <nav class="side-nav">
+    <a class="" href="../index.html"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/></svg>首頁</a>
+    <a class="" href="../index.html#%E7%B6%93%E5%85%B8%E9%A1%8C" data-series-link="經典題"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h6l2 2h10v11H3z"/></svg>經典題</a>
+    <a class="" href="../index.html#%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A1%8C" data-series-link="每日一題"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h6l2 2h10v11H3z"/></svg>每日一題</a>
+    <a class="on" href="../index.html#%E5%8B%95%E6%85%8B%E8%A6%8F%E5%8A%83%E5%88%B7%E9%A1%8C%E5%96%AE" data-series-link="動態規劃刷題單"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h6l2 2h10v11H3z"/></svg>動態規劃刷題單</a>
+  </nav>
+</div>
+<div class="side-card widget toc">
+  <h3><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg>目錄</h3>
+  <ol><li><a href="#video">講解影片</a></li><li><a href="#notes">重點整理</a></li><li><a href="#code">C++ 解答</a></li><li class="sub"><a href="#code" data-goto-tab="0">509 遞迴</a></li><li class="sub"><a href="#code" data-goto-tab="1">509 記憶化</a></li><li class="sub"><a href="#code" data-goto-tab="2">509 由下而上</a></li><li class="sub"><a href="#code" data-goto-tab="3">509 滾動變數</a></li><li class="sub"><a href="#code" data-goto-tab="4">1137 泰波那契</a></li><li class="sub"><a href="#code" data-goto-tab="5">70 爬樓梯</a></li><li class="sub"><a href="#code" data-goto-tab="6">746 最小花費爬樓梯</a></li></ol>
+</div>
+</div></aside>
+<main class="main">
+  <article class="article">
+    <p class="art-cat"><a href="../index.html#%E5%8B%95%E6%85%8B%E8%A6%8F%E5%8A%83%E5%88%B7%E9%A1%8C%E5%96%AE"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h6l2 2h10v11H3z"/></svg>動態規劃刷題單</a></p>
+    <h2 class="sec" id="video">講解影片</h2>
+    <div class="video"><iframe src="https://www.youtube-nocookie.com/embed/YIF6CpbAWoM" title="DP 刷題單 #1 · 入門" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
+    <p class="art-links"><a class="btn lc" href="https://leetcode.com/problems/fibonacci-number/" target="_blank" rel="noopener">LeetCode 509 <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v6H4V6h6"/></svg></a><a class="btn lc" href="https://leetcode.com/problems/n-th-tribonacci-number/" target="_blank" rel="noopener">LeetCode 1137 <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v6H4V6h6"/></svg></a><a class="btn lc" href="https://leetcode.com/problems/climbing-stairs/" target="_blank" rel="noopener">LeetCode 70 <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v6H4V6h6"/></svg></a><a class="btn lc" href="https://leetcode.com/problems/min-cost-climbing-stairs/" target="_blank" rel="noopener">LeetCode 746 <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v6H4V6h6"/></svg></a><a class="btn yt" href="https://www.youtube.com/watch?v=YIF6CpbAWoM" target="_blank" rel="noopener">在 YouTube 觀看 <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v6H4V6h6"/></svg></a></p>
+    <h2 class="sec" id="notes">重點整理</h2>
+    <p>從費氏數列認識動態規劃：遞迴 → 記憶化 → 由下而上填表 → 滾動變數。再用同一套想法解泰波那契、爬樓梯和最小花費爬樓梯。</p>
+    <p class="art-tags"><a href="../index.html#tag%3A%E5%8B%95%E6%85%8B%E8%A6%8F%E5%8A%83"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12V3h9l9 9-9 9z"/><circle cx="8" cy="8" r="1.5"/></svg>動態規劃</a><a href="../index.html#tag%3A%E8%A8%98%E6%86%B6%E5%8C%96"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12V3h9l9 9-9 9z"/><circle cx="8" cy="8" r="1.5"/></svg>記憶化</a></p>
+    <h2 class="sec" id="code">C++ 解答 <a class="dl" href="../solutions/dp01-intro.cpp" download>下載 .cpp</a></h2>
+    <div class="code"><div class="tabs" role="tablist"><button role="tab" aria-selected="true" data-tab="0">509 遞迴</button><button role="tab" aria-selected="false" data-tab="1">509 記憶化</button><button role="tab" aria-selected="false" data-tab="2">509 由下而上</button><button role="tab" aria-selected="false" data-tab="3">509 滾動變數</button><button role="tab" aria-selected="false" data-tab="4">1137 泰波那契</button><button role="tab" aria-selected="false" data-tab="5">70 爬樓梯</button><button role="tab" aria-selected="false" data-tab="6">746 最小花費爬樓梯</button></div><div class="pane" data-pane="0"><div class="pane-bar"><span class="dots"><i></i><i></i><i></i></span><span>C++</span><button class="copy" type="button">複製</button></div><pre><code class="language-cpp">int fib(int n) {
     if (n &lt; 2) return n;
     return fib(n - 1) + fib(n - 2);
 }
-</code></pre></div><div class="pane" data-pane="1" hidden><button class="copy" type="button">複製</button><pre><code class="language-cpp">int memo[31];            // -1 代表還沒算過
+</code></pre></div><div class="pane" data-pane="1" hidden><div class="pane-bar"><span class="dots"><i></i><i></i><i></i></span><span>C++</span><button class="copy" type="button">複製</button></div><pre><code class="language-cpp">int memo[31];            // -1 代表還沒算過
 int f(int n) {
     if (n &lt; 2) return n;
     if (memo[n] != -1) return memo[n];   // 算過 → 查表
@@ -34,7 +86,7 @@ int fib(int n) {
     memset(memo, -1, sizeof memo);
     return f(n);
 }
-</code></pre></div><div class="pane" data-pane="2" hidden><button class="copy" type="button">複製</button><pre><code class="language-cpp">int fib(int n) {
+</code></pre></div><div class="pane" data-pane="2" hidden><div class="pane-bar"><span class="dots"><i></i><i></i><i></i></span><span>C++</span><button class="copy" type="button">複製</button></div><pre><code class="language-cpp">int fib(int n) {
     if (n &lt; 2) return n;
     vector&lt;int&gt; dp(n + 1);
     dp[0] = 0, dp[1] = 1;
@@ -42,7 +94,7 @@ int fib(int n) {
         dp[i] = dp[i - 1] + dp[i - 2];
     return dp[n];
 }
-</code></pre></div><div class="pane" data-pane="3" hidden><button class="copy" type="button">複製</button><pre><code class="language-cpp">int fib(int n) {
+</code></pre></div><div class="pane" data-pane="3" hidden><div class="pane-bar"><span class="dots"><i></i><i></i><i></i></span><span>C++</span><button class="copy" type="button">複製</button></div><pre><code class="language-cpp">int fib(int n) {
     if (n &lt; 2) return n;
     int a = 0, b = 1;        // a = F(i-2), b = F(i-1)
     for (int i = 2; i &lt;= n; i++) {
@@ -52,7 +104,7 @@ int fib(int n) {
     }
     return b;
 }
-</code></pre></div><div class="pane" data-pane="4" hidden><button class="copy" type="button">複製</button><pre><code class="language-cpp">int tribonacci(int n) {
+</code></pre></div><div class="pane" data-pane="4" hidden><div class="pane-bar"><span class="dots"><i></i><i></i><i></i></span><span>C++</span><button class="copy" type="button">複製</button></div><pre><code class="language-cpp">int tribonacci(int n) {
     if (n == 0) return 0;
     if (n &lt;= 2) return 1;
     int a = 0, b = 1, c = 1;
@@ -62,7 +114,7 @@ int fib(int n) {
     }
     return c;
 }
-</code></pre></div><div class="pane" data-pane="5" hidden><button class="copy" type="button">複製</button><pre><code class="language-cpp">int climbStairs(int n) {
+</code></pre></div><div class="pane" data-pane="5" hidden><div class="pane-bar"><span class="dots"><i></i><i></i><i></i></span><span>C++</span><button class="copy" type="button">複製</button></div><pre><code class="language-cpp">int climbStairs(int n) {
     if (n &lt;= 2) return n;
     int a = 1, b = 2;        // a = dp[i-2], b = dp[i-1]
     for (int i = 3; i &lt;= n; i++) {
@@ -72,7 +124,7 @@ int fib(int n) {
     }
     return b;
 }
-</code></pre></div><div class="pane" data-pane="6" hidden><button class="copy" type="button">複製</button><pre><code class="language-cpp">int minCostClimbingStairs(vector&lt;int&gt;&amp; cost) {
+</code></pre></div><div class="pane" data-pane="6" hidden><div class="pane-bar"><span class="dots"><i></i><i></i><i></i></span><span>C++</span><button class="copy" type="button">複製</button></div><pre><code class="language-cpp">int minCostClimbingStairs(vector&lt;int&gt;&amp; cost) {
     int n = cost.size();
     int a = 0, b = 0;        // a = dp[i-2], b = dp[i-1]
     for (int i = 2; i &lt;= n; i++) {
@@ -82,10 +134,18 @@ int fib(int n) {
     }
     return b;
 }
-</code></pre></div></section>
-</article>
+</code></pre></div></div>
+  </article>
+  <nav class="art-nav">
+      <a class="prev" href="1606-find-servers-that-handled-most-requests.html" style="--cover:url('img/1606-find-servers-that-handled-most-requests.jpg')"><small><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>上一篇</small><b>1606. Find Servers That Handled Most Number of Requests</b></a>
+      <a class="next" href="dp02-house-robber.html" style="--cover:url('img/dp02-house-robber.jpg')"><small>下一篇<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></small><b>DP 刷題單 #2 · 198. House Robber</b></a>
+    </nav>
 </main>
-<footer class="foot">影片與程式碼：<a href="https://www.youtube.com/@nn-leetcode" target="_blank" rel="noopener">@nn-leetcode</a> · 解答使用 C++</footer>
+</div>
+<footer class="foot">
+  <div>© 2026 每日leetcode · 影片在 <a href="https://www.youtube.com/@nn-leetcode" target="_blank" rel="noopener">YouTube</a> · 原始碼在 <a href="https://github.com/10360555iamnn/leetcode-notes" target="_blank" rel="noopener">GitHub</a></div>
+  <div class="foot-small">版面參考 hugo-theme-reimu（MIT） · 解答使用 C++</div>
+</footer>
 <script src="../assets/site.js"></script>
 </body>
 </html>

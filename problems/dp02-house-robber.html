@@ -3,24 +3,76 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>198. House Robber 打家劫舍 · 每日 LeetCode 筆記</title>
+<title>DP 刷題單 #2 · 198. House Robber 打家劫舍 · 每日 LeetCode 筆記</title>
 <meta name="description" content="先看兩種貪心為什麼錯，再定義 dp[i] = 前 i 間房子能偷到的最多錢：偷第 i 間或不偷，取較大的那個。">
+<link rel="icon" href="../assets/avatar.svg" type="image/svg+xml">
+<script>try{var t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC:wght@400;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Mulish:wght@400;600;700&family=Noto+Sans+TC:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/style.css">
 </head>
 <body>
-<header class="top"><a class="brand" href="../index.html">每日 LeetCode 筆記</a><nav><a href="../index.html">全部影片</a><a href="https://www.youtube.com/@nn-leetcode" target="_blank" rel="noopener">YouTube 頻道</a></nav></header>
-<main class="page">
-<article class="sheet">
-  <p class="crumb"><span class="series">動態規劃刷題單</span></p>
-  <h1>198. House Robber</h1>
-  <p class="zh">打家劫舍 <span class="lv medium">Medium</span></p>
-  <p class="links"><a class="lc" href="https://leetcode.com/problems/house-robber/" target="_blank" rel="noopener">LeetCode 198 ↗</a></p>
-  <div class="video soon"><span>影片即將上架</span></div>
-  <section class="note"><h2>重點</h2><p>先看兩種貪心為什麼錯，再定義 dp[i] = 前 i 間房子能偷到的最多錢：偷第 i 間或不偷，取較大的那個。</p><p class="tags"><span>動態規劃</span></p></section>
-  <section class="code"><h2>C++ 解答 <a class="dl" href="../solutions/dp02-house-robber.cpp" download>下載 .cpp</a></h2><div class="tabs" role="tablist"><button role="tab" aria-selected="true" data-tab="0">記憶化</button><button role="tab" aria-selected="false" data-tab="1">由下而上</button><button role="tab" aria-selected="false" data-tab="2">滾動變數</button></div><div class="pane" data-pane="0"><button class="copy" type="button">複製</button><pre><code class="language-cpp">int memo[100];               // -1 代表還沒算過
+<header class="nav" id="nav">
+  <a class="nav-brand" href="../index.html"><img src="../assets/avatar.svg" alt="">每日 LeetCode 筆記</a>
+  <nav class="nav-links" id="nav-links">
+    <a href="../index.html"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/></svg>首頁</a>
+    <a href="../index.html#%E7%B6%93%E5%85%B8%E9%A1%8C"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h6l2 2h10v11H3z"/></svg>經典題</a>
+    <a href="../index.html#%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A1%8C"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h6l2 2h10v11H3z"/></svg>每日一題</a>
+    <a href="../index.html#%E5%8B%95%E6%85%8B%E8%A6%8F%E5%8A%83%E5%88%B7%E9%A1%8C%E5%96%AE"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h6l2 2h10v11H3z"/></svg>動態規劃刷題單</a>
+    <a href="https://www.youtube.com/@nn-leetcode" target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9l5 3-5 3z" fill="currentColor"/></svg>YouTube</a>
+  </nav>
+  <div class="nav-tools">
+    <button class="icon-btn" id="theme-btn" type="button" aria-label="切換深色模式"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></svg></button>
+    <button class="icon-btn nav-menu" id="menu-btn" type="button" aria-label="選單" aria-expanded="false"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+  </div>
+</header>
+<section class="banner post-banner" style="--banner:url('img/dp02-house-robber.jpg')">
+  <div class="banner-inner">
+    <h1>DP 刷題單 #2 · 198. House Robber</h1>
+    <p class="banner-sub">打家劫舍</p>
+    <div class="art-meta">
+      <span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>2026-11-09</span><span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>9 分鐘</span><span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 8l-5 4 5 4M16 8l5 4-5 4M14 5l-4 14"/></svg>3 段程式碼</span><span class="lv medium">Medium</span>
+    </div>
+  </div>
+</section>
+<div class="container">
+<aside class="sidebar"><div class="sticky"><div class="side-card profile">
+  <img class="avatar" src="../assets/avatar.svg" alt="頭像">
+  <div class="author">每日leetcode</div>
+  <div class="bio">用手寫筆記講解 LeetCode</div>
+  <div class="stats">
+    <a href="../index.html"><span>影片</span><b>7</b></a>
+    <a href="../index.html#categories"><span>系列</span><b>3</b></a>
+    <a href="../index.html"><span>題目</span><b>10</b></a>
+  </div>
+  <div class="social">
+    <a href="https://www.youtube.com/@nn-leetcode" target="_blank" rel="noopener" aria-label="YouTube"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9l5 3-5 3z" fill="currentColor"/></svg></a>
+    <a href="https://github.com/10360555iamnn/leetcode-notes" target="_blank" rel="noopener" aria-label="GitHub"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-4 1.5-4-2-6-2.5M15 21v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1-.3-3.4 1.3a11.6 11.6 0 0 0-6 0C6.8 2.8 5.8 3.1 5.8 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4.4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg></a>
+  </div>
+  <nav class="side-nav">
+    <a class="" href="../index.html"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/></svg>首頁</a>
+    <a class="" href="../index.html#%E7%B6%93%E5%85%B8%E9%A1%8C" data-series-link="經典題"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h6l2 2h10v11H3z"/></svg>經典題</a>
+    <a class="" href="../index.html#%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A1%8C" data-series-link="每日一題"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h6l2 2h10v11H3z"/></svg>每日一題</a>
+    <a class="on" href="../index.html#%E5%8B%95%E6%85%8B%E8%A6%8F%E5%8A%83%E5%88%B7%E9%A1%8C%E5%96%AE" data-series-link="動態規劃刷題單"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h6l2 2h10v11H3z"/></svg>動態規劃刷題單</a>
+  </nav>
+</div>
+<div class="side-card widget toc">
+  <h3><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg>目錄</h3>
+  <ol><li><a href="#video">講解影片</a></li><li><a href="#notes">重點整理</a></li><li><a href="#code">C++ 解答</a></li><li class="sub"><a href="#code" data-goto-tab="0">記憶化</a></li><li class="sub"><a href="#code" data-goto-tab="1">由下而上</a></li><li class="sub"><a href="#code" data-goto-tab="2">滾動變數</a></li></ol>
+</div>
+</div></aside>
+<main class="main">
+  <article class="article">
+    <p class="art-cat"><a href="../index.html#%E5%8B%95%E6%85%8B%E8%A6%8F%E5%8A%83%E5%88%B7%E9%A1%8C%E5%96%AE"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h6l2 2h10v11H3z"/></svg>動態規劃刷題單</a></p>
+    <h2 class="sec" id="video">講解影片</h2>
+    <div class="video soon" style="--cover:url('img/dp02-house-robber.jpg')"><span>影片即將上架</span></div>
+    <p class="art-links"><a class="btn lc" href="https://leetcode.com/problems/house-robber/" target="_blank" rel="noopener">LeetCode 198 <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v6H4V6h6"/></svg></a></p>
+    <h2 class="sec" id="notes">重點整理</h2>
+    <p>先看兩種貪心為什麼錯，再定義 dp[i] = 前 i 間房子能偷到的最多錢：偷第 i 間或不偷，取較大的那個。</p>
+    <p class="art-tags"><a href="../index.html#tag%3A%E5%8B%95%E6%85%8B%E8%A6%8F%E5%8A%83"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12V3h9l9 9-9 9z"/><circle cx="8" cy="8" r="1.5"/></svg>動態規劃</a></p>
+    <h2 class="sec" id="code">C++ 解答 <a class="dl" href="../solutions/dp02-house-robber.cpp" download>下載 .cpp</a></h2>
+    <div class="code"><div class="tabs" role="tablist"><button role="tab" aria-selected="true" data-tab="0">記憶化</button><button role="tab" aria-selected="false" data-tab="1">由下而上</button><button role="tab" aria-selected="false" data-tab="2">滾動變數</button></div><div class="pane" data-pane="0"><div class="pane-bar"><span class="dots"><i></i><i></i><i></i></span><span>C++</span><button class="copy" type="button">複製</button></div><pre><code class="language-cpp">int memo[100];               // -1 代表還沒算過
 int f(vector&lt;int&gt;&amp; nums, int i) {
     if (i == 0) return nums[0];
     if (i == 1) return max(nums[0], nums[1]);
@@ -33,7 +85,7 @@ int rob(vector&lt;int&gt;&amp; nums) {
     memset(memo, -1, sizeof memo);
     return f(nums, nums.size() - 1);
 }
-</code></pre></div><div class="pane" data-pane="1" hidden><button class="copy" type="button">複製</button><pre><code class="language-cpp">int rob(vector&lt;int&gt;&amp; nums) {
+</code></pre></div><div class="pane" data-pane="1" hidden><div class="pane-bar"><span class="dots"><i></i><i></i><i></i></span><span>C++</span><button class="copy" type="button">複製</button></div><pre><code class="language-cpp">int rob(vector&lt;int&gt;&amp; nums) {
     int n = nums.size();
     if (n == 1) return nums[0];
     vector&lt;int&gt; dp(n);
@@ -43,7 +95,7 @@ int rob(vector&lt;int&gt;&amp; nums) {
         dp[i] = max(dp[i - 1], dp[i - 2] + nums[i]);
     return dp[n - 1];
 }
-</code></pre></div><div class="pane" data-pane="2" hidden><button class="copy" type="button">複製</button><pre><code class="language-cpp">int rob(vector&lt;int&gt;&amp; nums) {
+</code></pre></div><div class="pane" data-pane="2" hidden><div class="pane-bar"><span class="dots"><i></i><i></i><i></i></span><span>C++</span><button class="copy" type="button">複製</button></div><pre><code class="language-cpp">int rob(vector&lt;int&gt;&amp; nums) {
     int a = 0, b = 0;        // a = dp[i-2], b = dp[i-1]
     for (int x : nums) {
         int c = max(b, a + x);   // 不偷 / 偷
@@ -52,10 +104,18 @@ int rob(vector&lt;int&gt;&amp; nums) {
     }
     return b;
 }
-</code></pre></div></section>
-</article>
+</code></pre></div></div>
+  </article>
+  <nav class="art-nav">
+      <a class="prev" href="dp01-intro.html" style="--cover:url('img/dp01-intro.jpg')"><small><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>上一篇</small><b>DP 刷題單 #1 · 入門</b></a>
+      <a class="next" href="dp03-house-robber-ii.html" style="--cover:url('img/dp03-house-robber-ii.jpg')"><small>下一篇<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></small><b>DP 刷題單 #3 · 213. House Robber II</b></a>
+    </nav>
 </main>
-<footer class="foot">影片與程式碼：<a href="https://www.youtube.com/@nn-leetcode" target="_blank" rel="noopener">@nn-leetcode</a> · 解答使用 C++</footer>
+</div>
+<footer class="foot">
+  <div>© 2026 每日leetcode · 影片在 <a href="https://www.youtube.com/@nn-leetcode" target="_blank" rel="noopener">YouTube</a> · 原始碼在 <a href="https://github.com/10360555iamnn/leetcode-notes" target="_blank" rel="noopener">GitHub</a></div>
+  <div class="foot-small">版面參考 hugo-theme-reimu（MIT） · 解答使用 C++</div>
+</footer>
 <script src="../assets/site.js"></script>
 </body>
 </html>
