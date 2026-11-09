@@ -1,4 +1,4 @@
-// ===== 記憶化 =====
+// ===== 198 記憶化 =====
 int memo[100];               // -1 代表還沒算過
 int f(vector<int>& nums, int i) {
     if (i == 0) return nums[0];
@@ -13,7 +13,7 @@ int rob(vector<int>& nums) {
     return f(nums, nums.size() - 1);
 }
 
-// ===== 由下而上 =====
+// ===== 198 由下而上 =====
 int rob(vector<int>& nums) {
     int n = nums.size();
     if (n == 1) return nums[0];
@@ -25,7 +25,7 @@ int rob(vector<int>& nums) {
     return dp[n - 1];
 }
 
-// ===== 滾動變數 =====
+// ===== 198 滾動變數 =====
 int rob(vector<int>& nums) {
     int a = 0, b = 0;        // a = dp[i-2], b = dp[i-1]
     for (int x : nums) {
@@ -34,4 +34,21 @@ int rob(vector<int>& nums) {
         b = c;
     }
     return b;
+}
+
+// ===== 213 拆成兩條直線 =====
+int robLine(vector<int>& nums, int l, int r) {
+    int a = 0, b = 0;              // 前一題的滾動變數
+    for (int i = l; i <= r; i++) {
+        int c = max(b, a + nums[i]);
+        a = b;
+        b = c;
+    }
+    return b;
+}
+int rob(vector<int>& nums) {
+    int n = nums.size();
+    if (n == 1) return nums[0];
+    return max(robLine(nums, 0, n - 2),     // 不偷最後一間
+               robLine(nums, 1, n - 1));    // 不偷第 0 間
 }

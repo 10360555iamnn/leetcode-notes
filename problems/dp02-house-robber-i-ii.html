@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>DP 刷題單 #3 · 213. House Robber II 打家劫舍 II · 每日 LeetCode 筆記</title>
-<meta name="description" content="房子圍成一圈，第一間和最後一間不能同時偷。拆成「不偷最後一間」和「不偷第一間」兩條直線，各跑一次 198 再取較大值。">
+<title>DP 刷題單 #2 · 打家劫舍 I &amp; II 198 · 213 · 每日 LeetCode 筆記</title>
+<meta name="description" content="198：先看兩種貪心為什麼錯，再定義 dp[i] = 前 i 間房子能偷到的最多錢，偷或不偷取較大值。213：房子圍成一圈，拆成「不偷最後一間」和「不偷第一間」兩條直線，各跑一次 198 再取較大值。">
 <link rel="icon" href="../assets/img/avatar.jpg" type="image/jpeg">
 <script>try{var t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -29,12 +29,12 @@
     <button class="icon-btn nav-menu" id="menu-btn" type="button" aria-label="選單" aria-expanded="false"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
   </div>
 </header>
-<section class="banner post-banner" style="--banner:url('img/dp03-house-robber-ii.jpg')">
+<section class="banner post-banner" style="--banner:url('img/dp02-house-robber-i-ii.jpg')">
   <div class="banner-inner">
-    <h1>DP 刷題單 #3 · 213. House Robber II</h1>
-    <p class="banner-sub">打家劫舍 II</p>
+    <h1>DP 刷題單 #2 · 打家劫舍 I &amp; II</h1>
+    <p class="banner-sub">198 · 213</p>
     <div class="art-meta">
-      <span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>2026-11-09</span><span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>9 分鐘</span><span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 8l-5 4 5 4M16 8l5 4-5 4M14 5l-4 14"/></svg>1 段程式碼</span><span class="lv medium">Medium</span>
+      <span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>2026-11-09</span><span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>18 分鐘</span><span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 8l-5 4 5 4M16 8l5 4-5 4M14 5l-4 14"/></svg>4 段程式碼</span><span class="lv medium">Medium</span>
     </div>
   </div>
 </section>
@@ -44,7 +44,7 @@
   <div class="author">每日leetcode</div>
   <div class="bio">用手寫筆記講解 LeetCode</div>
   <div class="stats">
-    <a href="../index.html"><span>影片</span><b>7</b></a>
+    <a href="../index.html"><span>影片</span><b>6</b></a>
     <a href="../index.html#categories"><span>系列</span><b>3</b></a>
     <a href="../problems.html"><span>題目</span><b>10</b></a>
   </div>
@@ -56,28 +56,60 @@
     <a class="" href="../index.html"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/></svg>首頁</a>
     <a class="" href="../index.html#%E7%B6%93%E5%85%B8%E9%A1%8C" data-series-link="經典題"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h6l2 2h10v11H3z"/></svg>經典題<em>1</em></a>
     <a class="" href="../index.html#%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A1%8C" data-series-link="每日一題"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h6l2 2h10v11H3z"/></svg>每日一題<em>3</em></a>
-    <a class="on" href="../index.html#%E5%8B%95%E6%85%8B%E8%A6%8F%E5%8A%83%E5%88%B7%E9%A1%8C%E5%96%AE" data-series-link="動態規劃刷題單"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h6l2 2h10v11H3z"/></svg>動態規劃刷題單<em>3</em></a>
+    <a class="on" href="../index.html#%E5%8B%95%E6%85%8B%E8%A6%8F%E5%8A%83%E5%88%B7%E9%A1%8C%E5%96%AE" data-series-link="動態規劃刷題單"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h6l2 2h10v11H3z"/></svg>動態規劃刷題單<em>2</em></a>
     <a class="" href="../problems.html"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg>題目清單<em>10</em></a>
     <a class="" href="../about.html"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg>關於</a>
   </nav>
 </div>
 <div class="side-card widget toc">
   <h3><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg>目錄</h3>
-  <ol><li><a href="#video">講解影片</a></li><li><a href="#notes">重點整理</a></li><li><a href="#code">C++ 解答</a></li></ol>
+  <ol><li><a href="#video">講解影片</a></li><li><a href="#notes">重點整理</a></li><li><a href="#code">C++ 解答</a></li><li class="sub"><a href="#code" data-goto-tab="0">198 記憶化</a></li><li class="sub"><a href="#code" data-goto-tab="1">198 由下而上</a></li><li class="sub"><a href="#code" data-goto-tab="2">198 滾動變數</a></li><li class="sub"><a href="#code" data-goto-tab="3">213 拆成兩條直線</a></li></ol>
 </div>
 </div></aside>
 <main class="main">
   <article class="article">
     <p class="art-cat"><a href="../index.html#%E5%8B%95%E6%85%8B%E8%A6%8F%E5%8A%83%E5%88%B7%E9%A1%8C%E5%96%AE"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h6l2 2h10v11H3z"/></svg>動態規劃刷題單</a></p>
     <h2 class="sec" id="video">講解影片</h2>
-    <div class="video soon" style="--cover:url('img/dp03-house-robber-ii.jpg')"><span>影片即將上架</span></div>
-    <p class="art-links"><a class="btn lc" href="https://leetcode.com/problems/house-robber-ii/" target="_blank" rel="noopener">LeetCode 213 <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v6H4V6h6"/></svg></a></p>
+    <div class="video soon" style="--cover:url('img/dp02-house-robber-i-ii.jpg')"><span>影片即將上架</span></div>
+    <p class="art-links"><a class="btn lc" href="https://leetcode.com/problems/house-robber/" target="_blank" rel="noopener">LeetCode 198 <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v6H4V6h6"/></svg></a><a class="btn lc" href="https://leetcode.com/problems/house-robber-ii/" target="_blank" rel="noopener">LeetCode 213 <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v6H4V6h6"/></svg></a></p>
     <h2 class="sec" id="notes">重點整理</h2>
-    <p>房子圍成一圈，第一間和最後一間不能同時偷。拆成「不偷最後一間」和「不偷第一間」兩條直線，各跑一次 198 再取較大值。</p>
+    <p>198：先看兩種貪心為什麼錯，再定義 dp[i] = 前 i 間房子能偷到的最多錢，偷或不偷取較大值。213：房子圍成一圈，拆成「不偷最後一間」和「不偷第一間」兩條直線，各跑一次 198 再取較大值。</p>
     <p class="art-tags"><a href="../index.html#tag%3A%E5%8B%95%E6%85%8B%E8%A6%8F%E5%8A%83"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12V3h9l9 9-9 9z"/><circle cx="8" cy="8" r="1.5"/></svg>動態規劃</a></p>
-    <h2 class="sec" id="code">C++ 解答 <a class="dl" href="../solutions/dp03-house-robber-ii.cpp" download>下載 .cpp</a></h2>
-    <div class="code"><div class="pane" data-pane="0"><div class="pane-bar"><span class="dots"><i></i><i></i><i></i></span><span>C++ · 拆成兩條直線</span><button class="copy" type="button">複製</button></div><pre><code class="language-cpp">int robLine(vector&lt;int&gt;&amp; nums, int l, int r) {
-    int a = 0, b = 0;              // 上一集的滾動變數
+    <h2 class="sec" id="code">C++ 解答 <a class="dl" href="../solutions/dp02-house-robber-i-ii.cpp" download>下載 .cpp</a></h2>
+    <div class="code"><div class="tabs" role="tablist"><button role="tab" aria-selected="true" data-tab="0">198 記憶化</button><button role="tab" aria-selected="false" data-tab="1">198 由下而上</button><button role="tab" aria-selected="false" data-tab="2">198 滾動變數</button><button role="tab" aria-selected="false" data-tab="3">213 拆成兩條直線</button></div><div class="pane" data-pane="0"><div class="pane-bar"><span class="dots"><i></i><i></i><i></i></span><span>C++</span><button class="copy" type="button">複製</button></div><pre><code class="language-cpp">int memo[100];               // -1 代表還沒算過
+int f(vector&lt;int&gt;&amp; nums, int i) {
+    if (i == 0) return nums[0];
+    if (i == 1) return max(nums[0], nums[1]);
+    if (memo[i] != -1) return memo[i];
+    int skip = f(nums, i - 1);              // 不偷第 i 間
+    int take = f(nums, i - 2) + nums[i];    // 偷第 i 間
+    return memo[i] = max(skip, take);
+}
+int rob(vector&lt;int&gt;&amp; nums) {
+    memset(memo, -1, sizeof memo);
+    return f(nums, nums.size() - 1);
+}
+</code></pre></div><div class="pane" data-pane="1" hidden><div class="pane-bar"><span class="dots"><i></i><i></i><i></i></span><span>C++</span><button class="copy" type="button">複製</button></div><pre><code class="language-cpp">int rob(vector&lt;int&gt;&amp; nums) {
+    int n = nums.size();
+    if (n == 1) return nums[0];
+    vector&lt;int&gt; dp(n);
+    dp[0] = nums[0];
+    dp[1] = max(nums[0], nums[1]);
+    for (int i = 2; i &lt; n; i++)
+        dp[i] = max(dp[i - 1], dp[i - 2] + nums[i]);
+    return dp[n - 1];
+}
+</code></pre></div><div class="pane" data-pane="2" hidden><div class="pane-bar"><span class="dots"><i></i><i></i><i></i></span><span>C++</span><button class="copy" type="button">複製</button></div><pre><code class="language-cpp">int rob(vector&lt;int&gt;&amp; nums) {
+    int a = 0, b = 0;        // a = dp[i-2], b = dp[i-1]
+    for (int x : nums) {
+        int c = max(b, a + x);   // 不偷 / 偷
+        a = b;
+        b = c;
+    }
+    return b;
+}
+</code></pre></div><div class="pane" data-pane="3" hidden><div class="pane-bar"><span class="dots"><i></i><i></i><i></i></span><span>C++</span><button class="copy" type="button">複製</button></div><pre><code class="language-cpp">int robLine(vector&lt;int&gt;&amp; nums, int l, int r) {
+    int a = 0, b = 0;              // 前一題的滾動變數
     for (int i = l; i &lt;= r; i++) {
         int c = max(b, a + nums[i]);
         a = b;
@@ -94,7 +126,7 @@ int rob(vector&lt;int&gt;&amp; nums) {
 </code></pre></div></div>
   </article>
   <nav class="art-nav">
-      <a class="prev" href="dp02-house-robber.html" style="--cover:url('img/dp02-house-robber.jpg')"><small><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>上一篇</small><b>DP 刷題單 #2 · 198. House Robber</b></a>
+      <a class="prev" href="1606-find-servers-that-handled-most-requests.html" style="--cover:url('img/1606-find-servers-that-handled-most-requests.jpg')"><small><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>上一篇</small><b>1606. Find Servers That Handled Most Number of Requests</b></a>
       <span></span>
     </nav>
 </main>
