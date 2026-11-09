@@ -1,6 +1,6 @@
 # 每日 LeetCode 筆記
 
-筆記風格的 LeetCode 中文講解影片與 C++ 解答。
+LeetCode 中文講解影片與 C++ 解答。
 
 - YouTube：https://www.youtube.com/@nn-leetcode
 - 解答原始碼：[solutions/](solutions/)
