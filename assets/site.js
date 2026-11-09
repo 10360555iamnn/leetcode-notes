@@ -76,6 +76,26 @@ $$('.copy').forEach(b => b.addEventListener('click', async () => {
 // 熱力圖在窄螢幕要捲動時，預設顯示最近的日期
 $$('.heat-scroll').forEach(el => { el.scrollLeft = el.scrollWidth; });
 
+// ---- 題目清單：排序與難度篩選 ----
+const prList = $('#pr-list');
+if (prList) {
+  let lvF = null;
+  const render = () => {
+    $$('li', prList).forEach(li => { li.hidden = !!lvF && li.dataset.lv !== lvF; });
+    $$('.lv-box').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.filter === lvF)));
+    const f = $('#pr-filter'), n = $$('li', prList).filter(li => !li.hidden).length;
+    f.hidden = !lvF; if (lvF) f.innerHTML = `只顯示 ${lvF}（${n} 題）<a href="#" id="pr-clear">顯示全部</a>`;
+    $('#pr-clear')?.addEventListener('click', e => { e.preventDefault(); lvF = null; render(); });
+  };
+  $$('.lv-box').forEach(b => b.addEventListener('click', () => { lvF = lvF === b.dataset.filter ? null : b.dataset.filter; render(); }));
+  $$('.pr-tabs [data-sort]').forEach(b => b.addEventListener('click', () => {
+    $$('.pr-tabs [data-sort]').forEach(x => x.setAttribute('aria-selected', String(x === b)));
+    const items = $$('li', prList);
+    items.sort(b.dataset.sort === 'num' ? (x, y) => x.dataset.n - y.dataset.n : (x, y) => y.dataset.date.localeCompare(x.dataset.date) || y.dataset.n - x.dataset.n);
+    items.forEach(li => prList.appendChild(li));
+  }));
+}
+
 // ---- 站內搜尋（Ctrl+K 或 / 開啟） ----
 const ALIAS = { 動態規劃: 'dp dynamic programming', 優先佇列: 'heap 堆積 priority_queue pq', 雙指針: 'two pointers 雙指標', 單調棧: 'monotonic stack 單調堆疊 stack', 有序集合: 'set ordered set', 模擬: 'simulation', 記憶化: 'memo memoization', 計數: 'count', 矩陣: 'matrix grid', 前綴最大值: 'prefix max 前綴' };
 const ROOT = document.body.dataset.root || '';

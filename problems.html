@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>題目清單 · 每日 LeetCode 筆記</title>
+<meta name="description" content="已講解 10 道 LeetCode 題目。">
+<link rel="icon" href="assets/img/avatar.jpg" type="image/jpeg">
+<script>try{var t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Mulish:wght@400;600;700&family=Noto+Sans+TC:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body data-root="">
+<header class="nav" id="nav">
+  <a class="nav-brand" href="index.html"><img src="assets/img/avatar.jpg" alt="">每日 LeetCode 筆記</a>
+  <nav class="nav-links" id="nav-links">
+    <a href="index.html"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/></svg>首頁</a>
+    <a href="index.html#%E7%B6%93%E5%85%B8%E9%A1%8C"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h6l2 2h10v11H3z"/></svg>經典題</a>
+    <a href="index.html#%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A1%8C"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h6l2 2h10v11H3z"/></svg>每日一題</a>
+    <a href="index.html#%E5%8B%95%E6%85%8B%E8%A6%8F%E5%8A%83%E5%88%B7%E9%A1%8C%E5%96%AE"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h6l2 2h10v11H3z"/></svg>動態規劃刷題單</a>
+    <a href="about.html"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg>關於</a>
+    <a href="https://www.youtube.com/@nn-leetcode" target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9l5 3-5 3z" fill="currentColor"/></svg>YouTube</a>
+  </nav>
+  <div class="nav-tools">
+    <button class="icon-btn" id="search-btn" type="button" aria-label="搜尋（Ctrl+K）"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg></button>
+    <button class="icon-btn" id="theme-btn" type="button" aria-label="切換深色模式"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></svg></button>
+    <button class="icon-btn nav-menu" id="menu-btn" type="button" aria-label="選單" aria-expanded="false"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+  </div>
+</header>
+<section class="banner" style="--banner:url('img/banner.jpg')">
+  <div class="banner-inner">
+    <h1>題目清單</h1>
+    <p class="banner-sub">目前講解過 10 道題目</p>
+    
+  </div>
+</section>
+<div class="container">
+<aside class="sidebar"><div class="sticky"><div class="side-card profile">
+  <img class="avatar" src="assets/img/avatar.jpg" alt="頭像">
+  <div class="author">每日leetcode</div>
+  <div class="bio">用手寫筆記講解 LeetCode</div>
+  <div class="stats">
+    <a href="index.html"><span>影片</span><b>7</b></a>
+    <a href="index.html#categories"><span>系列</span><b>3</b></a>
+    <a href="problems.html"><span>題目</span><b>10</b></a>
+  </div>
+  <div class="social">
+    <a href="https://www.youtube.com/@nn-leetcode" target="_blank" rel="noopener" aria-label="YouTube"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9l5 3-5 3z" fill="currentColor"/></svg></a>
+    <a href="https://github.com/10360555iamnn/leetcode-notes" target="_blank" rel="noopener" aria-label="GitHub"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-4 1.5-4-2-6-2.5M15 21v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1-.3-3.4 1.3a11.6 11.6 0 0 0-6 0C6.8 2.8 5.8 3.1 5.8 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4.4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg></a>
+  </div>
+  <nav class="side-nav">
+    <a class="" href="index.html"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/></svg>首頁</a>
+    <a class="" href="index.html#%E7%B6%93%E5%85%B8%E9%A1%8C" data-series-link="經典題"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h6l2 2h10v11H3z"/></svg>經典題<em>1</em></a>
+    <a class="" href="index.html#%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A1%8C" data-series-link="每日一題"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h6l2 2h10v11H3z"/></svg>每日一題<em>3</em></a>
+    <a class="" href="index.html#%E5%8B%95%E6%85%8B%E8%A6%8F%E5%8A%83%E5%88%B7%E9%A1%8C%E5%96%AE" data-series-link="動態規劃刷題單"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h6l2 2h10v11H3z"/></svg>動態規劃刷題單<em>3</em></a>
+    <a class="on" href="problems.html"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg>題目清單<em>10</em></a>
+    <a class="" href="about.html"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg>關於</a>
+  </nav>
+</div>
+<div class="side-card widget" id="categories">
+  <h3>分類</h3>
+  <ul class="cat-list"><li><a href="index.html#%E7%B6%93%E5%85%B8%E9%A1%8C"><span>經典題</span><em>1</em></a></li><li><a href="index.html#%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A1%8C"><span>每日一題</span><em>3</em></a></li><li><a href="index.html#%E5%8B%95%E6%85%8B%E8%A6%8F%E5%8A%83%E5%88%B7%E9%A1%8C%E5%96%AE"><span>動態規劃刷題單</span><em>3</em></a></li></ul>
+</div>
+<div class="side-card widget">
+  <h3>標籤</h3>
+  <div class="tag-cloud"><a href="index.html#tag%3A%E9%9B%99%E6%8C%87%E9%87%9D">雙指針</a><a href="index.html#tag%3A%E5%96%AE%E8%AA%BF%E6%A3%A7">單調棧</a><a href="index.html#tag%3A%E5%89%8D%E7%B6%B4%E6%9C%80%E5%A4%A7%E5%80%BC">前綴最大值</a><a href="index.html#tag%3A%E5%84%AA%E5%85%88%E4%BD%87%E5%88%97">優先佇列</a><a href="index.html#tag%3A%E6%A8%A1%E6%93%AC">模擬</a><a href="index.html#tag%3A%E8%A8%88%E6%95%B8">計數</a><a href="index.html#tag%3A%E7%9F%A9%E9%99%A3">矩陣</a><a href="index.html#tag%3A%E6%9C%89%E5%BA%8F%E9%9B%86%E5%90%88">有序集合</a><a href="index.html#tag%3A%E5%8B%95%E6%85%8B%E8%A6%8F%E5%8A%83">動態規劃</a><a href="index.html#tag%3A%E8%A8%98%E6%86%B6%E5%8C%96">記憶化</a></div>
+</div>
+</div></aside>
+<main class="main">
+  <article class="article">
+    <h2 class="sec">解題統計</h2>
+    <div class="stat-card">
+      <div class="ring-wrap"><svg class="ring" viewBox="0 0 220 220" aria-hidden="true"><g transform="rotate(135 110 110)">
+    <circle class="ring-bg" r="92" cx="110" cy="110" stroke-dasharray="433.5 578.1"/><circle class="ring-seg easy" r="92" cx="110" cy="110" stroke-dasharray="167.4 578.1" stroke-dashoffset="0.0"/><circle class="ring-seg medium" r="92" cx="110" cy="110" stroke-dasharray="167.4 578.1" stroke-dashoffset="-173.4"/><circle class="ring-seg hard" r="92" cx="110" cy="110" stroke-dasharray="80.7 578.1" stroke-dashoffset="-346.8"/></g></svg><div class="ring-text"><b>10</b><span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 8l-5 4 5 4M16 8l5 4-5 4M14 5l-4 14"/></svg>已講解</span><small>7 支影片</small></div></div>
+      <div class="lv-boxes"><button type="button" class="lv-box easy" data-filter="Easy"><span>Easy</span><b>4</b></button><button type="button" class="lv-box medium" data-filter="Medium"><span>Med.</span><b>4</b></button><button type="button" class="lv-box hard" data-filter="Hard"><span>Hard</span><b>2</b></button></div>
+    </div>
+    <div class="pr-tabs" role="tablist">
+      <button type="button" role="tab" aria-selected="true" data-sort="date"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>最近更新</button>
+      <button type="button" role="tab" aria-selected="false" data-sort="num"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg>依題號</button>
+      <span class="pr-filter" id="pr-filter" hidden></span>
+    </div>
+    <ul class="pr-list" id="pr-list">
+    <li data-lv="Hard" data-n="1606" data-date="2026-11-09">
+      <span class="pr-num">1606.</span>
+      <a class="pr-name" href="problems/1606-find-servers-that-handled-most-requests.html"><b>Find Servers That Handled Most Number of Requests</b><small>找到處理最多請求的伺服器</small></a>
+      <span class="lv hard">Hard</span>
+      <span class="pr-date">2026-11-09</span>
+      <span class="pr-links"><a href="problems/1606-find-servers-that-handled-most-requests.html" title="看講解"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9l5 3-5 3z" fill="currentColor"/></svg></a><a href="https://leetcode.com/problems/find-servers-that-handled-most-number-of-requests/" target="_blank" rel="noopener" title="到 LeetCode 寫寫看"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v6H4V6h6"/></svg></a></span>
+    </li>
+    <li data-lv="Medium" data-n="213" data-date="2026-11-09">
+      <span class="pr-num">213.</span>
+      <a class="pr-name" href="problems/dp03-house-robber-ii.html"><b>House Robber II</b><small>打家劫舍 II</small></a>
+      <span class="lv medium">Med.</span>
+      <span class="pr-date">2026-11-09</span>
+      <span class="pr-links"><a href="problems/dp03-house-robber-ii.html" title="看講解"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9l5 3-5 3z" fill="currentColor"/></svg></a><a href="https://leetcode.com/problems/house-robber-ii/" target="_blank" rel="noopener" title="到 LeetCode 寫寫看"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v6H4V6h6"/></svg></a></span>
+    </li>
+    <li data-lv="Medium" data-n="198" data-date="2026-11-09">
+      <span class="pr-num">198.</span>
+      <a class="pr-name" href="problems/dp02-house-robber.html"><b>House Robber</b><small>打家劫舍</small></a>
+      <span class="lv medium">Med.</span>
+      <span class="pr-date">2026-11-09</span>
+      <span class="pr-links"><a href="problems/dp02-house-robber.html" title="看講解"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9l5 3-5 3z" fill="currentColor"/></svg></a><a href="https://leetcode.com/problems/house-robber/" target="_blank" rel="noopener" title="到 LeetCode 寫寫看"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v6H4V6h6"/></svg></a></span>
+    </li>
+    <li data-lv="Medium" data-n="1267" data-date="2026-11-08">
+      <span class="pr-num">1267.</span>
+      <a class="pr-name" href="problems/1267-count-servers-that-communicate.html"><b>Count Servers that Communicate</b><small>統計參與通信的伺服器</small></a>
+      <span class="lv medium">Med.</span>
+      <span class="pr-date">2026-11-08</span>
+      <span class="pr-links"><a href="problems/1267-count-servers-that-communicate.html" title="看講解"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9l5 3-5 3z" fill="currentColor"/></svg></a><a href="https://leetcode.com/problems/count-servers-that-communicate/" target="_blank" rel="noopener" title="到 LeetCode 寫寫看"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v6H4V6h6"/></svg></a></span>
+    </li>
+    <li data-lv="Easy" data-n="1137" data-date="2026-11-08">
+      <span class="pr-num">1137.</span>
+      <a class="pr-name" href="problems/dp01-intro.html"><b>N-th Tribonacci Number</b><small>第 N 個泰波那契數</small></a>
+      <span class="lv easy">Easy</span>
+      <span class="pr-date">2026-11-08</span>
+      <span class="pr-links"><a href="problems/dp01-intro.html" title="看講解"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9l5 3-5 3z" fill="currentColor"/></svg></a><a href="https://leetcode.com/problems/n-th-tribonacci-number/" target="_blank" rel="noopener" title="到 LeetCode 寫寫看"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v6H4V6h6"/></svg></a></span>
+    </li>
+    <li data-lv="Easy" data-n="746" data-date="2026-11-08">
+      <span class="pr-num">746.</span>
+      <a class="pr-name" href="problems/dp01-intro.html"><b>Min Cost Climbing Stairs</b><small>使用最小花費爬樓梯</small></a>
+      <span class="lv easy">Easy</span>
+      <span class="pr-date">2026-11-08</span>
+      <span class="pr-links"><a href="problems/dp01-intro.html" title="看講解"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9l5 3-5 3z" fill="currentColor"/></svg></a><a href="https://leetcode.com/problems/min-cost-climbing-stairs/" target="_blank" rel="noopener" title="到 LeetCode 寫寫看"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v6H4V6h6"/></svg></a></span>
+    </li>
+    <li data-lv="Easy" data-n="509" data-date="2026-11-08">
+      <span class="pr-num">509.</span>
+      <a class="pr-name" href="problems/dp01-intro.html"><b>Fibonacci Number</b><small>費氏數</small></a>
+      <span class="lv easy">Easy</span>
+      <span class="pr-date">2026-11-08</span>
+      <span class="pr-links"><a href="problems/dp01-intro.html" title="看講解"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9l5 3-5 3z" fill="currentColor"/></svg></a><a href="https://leetcode.com/problems/fibonacci-number/" target="_blank" rel="noopener" title="到 LeetCode 寫寫看"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v6H4V6h6"/></svg></a></span>
+    </li>
+    <li data-lv="Easy" data-n="70" data-date="2026-11-08">
+      <span class="pr-num">70.</span>
+      <a class="pr-name" href="problems/dp01-intro.html"><b>Climbing Stairs</b><small>爬樓梯</small></a>
+      <span class="lv easy">Easy</span>
+      <span class="pr-date">2026-11-08</span>
+      <span class="pr-links"><a href="problems/dp01-intro.html" title="看講解"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9l5 3-5 3z" fill="currentColor"/></svg></a><a href="https://leetcode.com/problems/climbing-stairs/" target="_blank" rel="noopener" title="到 LeetCode 寫寫看"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v6H4V6h6"/></svg></a></span>
+    </li>
+    <li data-lv="Medium" data-n="1882" data-date="2026-11-07">
+      <span class="pr-num">1882.</span>
+      <a class="pr-name" href="problems/1882-process-tasks-using-servers.html"><b>Process Tasks Using Servers</b><small>使用伺服器處理任務</small></a>
+      <span class="lv medium">Med.</span>
+      <span class="pr-date">2026-11-07</span>
+      <span class="pr-links"><a href="problems/1882-process-tasks-using-servers.html" title="看講解"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9l5 3-5 3z" fill="currentColor"/></svg></a><a href="https://leetcode.com/problems/process-tasks-using-servers/" target="_blank" rel="noopener" title="到 LeetCode 寫寫看"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v6H4V6h6"/></svg></a></span>
+    </li>
+    <li data-lv="Hard" data-n="42" data-date="2026-11-07">
+      <span class="pr-num">42.</span>
+      <a class="pr-name" href="problems/0042-trapping-rain-water.html"><b>Trapping Rain Water</b><small>接雨水</small></a>
+      <span class="lv hard">Hard</span>
+      <span class="pr-date">2026-11-07</span>
+      <span class="pr-links"><a href="problems/0042-trapping-rain-water.html" title="看講解"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9l5 3-5 3z" fill="currentColor"/></svg></a><a href="https://leetcode.com/problems/trapping-rain-water/" target="_blank" rel="noopener" title="到 LeetCode 寫寫看"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v6H4V6h6"/></svg></a></span>
+    </li>
+    </ul>
+  </article>
+</main>
+</div>
+<footer class="foot">
+  <div>© 2026 每日leetcode · 影片在 <a href="https://www.youtube.com/@nn-leetcode" target="_blank" rel="noopener">YouTube</a> · 原始碼在 <a href="https://github.com/10360555iamnn/leetcode-notes" target="_blank" rel="noopener">GitHub</a></div>
+  <div class="foot-small">版面參考 hugo-theme-reimu（MIT） · 解答使用 C++</div>
+</footer>
+<div class="search" id="search" hidden>
+  <div class="search-box" role="dialog" aria-modal="true" aria-label="搜尋">
+    <div class="search-head"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input id="search-input" type="search" placeholder="搜尋題號、題名、標籤…（例如 1882、堆積、DP）" autocomplete="off"><button class="icon-btn" id="search-close" type="button" aria-label="關閉"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+    <ul class="search-results" id="search-results"></ul>
+    <div class="search-foot"><span><kbd>↑</kbd><kbd>↓</kbd> 選擇</span><span><kbd>Enter</kbd> 開啟</span><span><kbd>Esc</kbd> 關閉</span></div>
+  </div>
+</div>
+<script src="assets/search-index.js"></script>
+<script src="assets/site.js"></script>
+</body>
+</html>
