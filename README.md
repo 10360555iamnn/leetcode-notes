@@ -7,6 +7,7 @@ LeetCode 中文講解影片與 C++ 解答。
 
 | 題目 | 難度 | 影片 |
 |---|---|---|
+| DP 刷題單 #3 · 740. Delete and Earn 刪除並獲得點數 | Medium | [觀看](https://www.youtube.com/watch?v=jV5slCtFE6E) |
 | DP 刷題單 #2 · 打家劫舍 I & II 198 · 213 | Medium | [觀看](https://www.youtube.com/watch?v=0hKkSXwzifk) |
 | 1606. Find Servers That Handled Most Number of Requests 找到處理最多請求的伺服器 | Hard | [觀看](https://www.youtube.com/watch?v=KNG_UpoW31o) |
 | DP 刷題單 #1 · 入門 509 · 1137 · 70 · 746 | Easy | [觀看](https://www.youtube.com/watch?v=YIF6CpbAWoM) |
