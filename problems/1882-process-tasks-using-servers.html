@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>1882. Process Tasks Using Servers 使用伺服器處理任務 · 每日 LeetCode 筆記</title>
+<meta name="description" content="用兩個堆積模擬：空閒伺服器按（權重, 編號）排，忙碌伺服器按空閒時間排。所有伺服器都在忙時，時間直接跳到最早空出來的那一刻。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC:wght@400;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="top"><a class="brand" href="../index.html">每日 LeetCode 筆記</a><nav><a href="../index.html">全部影片</a><a href="https://www.youtube.com/@nn-leetcode" target="_blank" rel="noopener">YouTube 頻道</a></nav></header>
+<main class="page">
+<article class="sheet">
+  <p class="crumb"><span class="series">每日一題</span><span class="date">2026-11-07</span></p>
+  <h1>1882. Process Tasks Using Servers</h1>
+  <p class="zh">使用伺服器處理任務 <span class="lv medium">Medium</span></p>
+  <p class="links"><a class="lc" href="https://leetcode.com/problems/process-tasks-using-servers/" target="_blank" rel="noopener">LeetCode 1882 ↗</a><a class="yt" href="https://www.youtube.com/watch?v=kTIk9CW1vEI" target="_blank" rel="noopener">在 YouTube 觀看 ↗</a></p>
+  <div class="video"><iframe src="https://www.youtube-nocookie.com/embed/kTIk9CW1vEI" title="1882. Process Tasks Using Servers" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
+  <section class="note"><h2>重點</h2><p>用兩個堆積模擬：空閒伺服器按（權重, 編號）排，忙碌伺服器按空閒時間排。所有伺服器都在忙時，時間直接跳到最早空出來的那一刻。</p><p class="tags"><span>優先佇列</span><span>模擬</span></p></section>
+  <section class="code"><h2>C++ 解答 <a class="dl" href="../solutions/1882-process-tasks-using-servers.cpp" download>下載 .cpp</a></h2><div class="pane" data-pane="0"><button class="copy" type="button">複製</button><pre><code class="language-cpp">class Solution {
+public:
+    vector&lt;int&gt; assignTasks(vector&lt;int&gt;&amp; servers, vector&lt;int&gt;&amp; tasks) {
+        using T = tuple&lt;long long, int, int&gt;;   // (空閒時間, 權重, 編號)
+        priority_queue&lt;pair&lt;int,int&gt;, vector&lt;pair&lt;int,int&gt;&gt;, greater&lt;&gt;&gt; freeQ;
+        priority_queue&lt;T, vector&lt;T&gt;, greater&lt;&gt;&gt; busyQ;
+        for (int i = 0; i &lt; servers.size(); i++) freeQ.push({servers[i], i});
+        vector&lt;int&gt; ans;
+        long long t = 0;
+        for (int j = 0; j &lt; tasks.size(); j++) {
+            t = max(t, (long long)j);
+            if (freeQ.empty()) t = get&lt;0&gt;(busyQ.top());
+            while (!busyQ.empty() &amp;&amp; get&lt;0&gt;(busyQ.top()) &lt;= t) {
+                auto [end, w, i] = busyQ.top(); busyQ.pop();
+                freeQ.push({w, i});
+            }
+            auto [w, i] = freeQ.top(); freeQ.pop();
+            ans.push_back(i);
+            busyQ.push({t + tasks[j], w, i});
+        }
+        return ans;
+    }
+};
+</code></pre></div></section>
+</article>
+</main>
+<footer class="foot">影片與程式碼：<a href="https://www.youtube.com/@nn-leetcode" target="_blank" rel="noopener">@nn-leetcode</a> · 解答使用 C++</footer>
+<script src="../assets/site.js"></script>
+</body>
+</html>

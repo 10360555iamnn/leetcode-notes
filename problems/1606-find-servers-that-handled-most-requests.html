@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>1606. Find Servers That Handled Most Number of Requests 找到處理最多請求的伺服器 · 每日 LeetCode 筆記</title>
+<meta name="description" content="忙碌的伺服器放進按結束時間排序的堆積，空閒的伺服器放進有序集合，用 lower_bound 找「從 i % k 開始往後第一台」空閒伺服器，找不到就繞回開頭。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC:wght@400;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="top"><a class="brand" href="../index.html">每日 LeetCode 筆記</a><nav><a href="../index.html">全部影片</a><a href="https://www.youtube.com/@nn-leetcode" target="_blank" rel="noopener">YouTube 頻道</a></nav></header>
+<main class="page">
+<article class="sheet">
+  <p class="crumb"><span class="series">每日一題</span><span class="date">2026-11-08</span></p>
+  <h1>1606. Find Servers That Handled Most Number of Requests</h1>
+  <p class="zh">找到處理最多請求的伺服器 <span class="lv hard">Hard</span></p>
+  <p class="links"><a class="lc" href="https://leetcode.com/problems/find-servers-that-handled-most-number-of-requests/" target="_blank" rel="noopener">LeetCode 1606 ↗</a><a class="yt" href="https://www.youtube.com/watch?v=KNG_UpoW31o" target="_blank" rel="noopener">在 YouTube 觀看 ↗</a></p>
+  <div class="video"><iframe src="https://www.youtube-nocookie.com/embed/KNG_UpoW31o" title="1606. Find Servers That Handled Most Number of Requests" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
+  <section class="note"><h2>重點</h2><p>忙碌的伺服器放進按結束時間排序的堆積，空閒的伺服器放進有序集合，用 lower_bound 找「從 i % k 開始往後第一台」空閒伺服器，找不到就繞回開頭。</p><p class="tags"><span>有序集合</span><span>優先佇列</span></p></section>
+  <section class="code"><h2>C++ 解答 <a class="dl" href="../solutions/1606-find-servers-that-handled-most-requests.cpp" download>下載 .cpp</a></h2><div class="pane" data-pane="0"><button class="copy" type="button">複製</button><pre><code class="language-cpp">class Solution {
+public:
+    vector&lt;int&gt; busiestServers(int k, vector&lt;int&gt;&amp; arrival, vector&lt;int&gt;&amp; load) {
+        set&lt;int&gt; avail;                                   // 空閒伺服器的編號
+        for (int i = 0; i &lt; k; i++) avail.insert(i);
+        priority_queue&lt;pair&lt;long long,int&gt;, vector&lt;pair&lt;long long,int&gt;&gt;, greater&lt;&gt;&gt; busy;
+        vector&lt;int&gt; cnt(k, 0);
+        for (int i = 0; i &lt; arrival.size(); i++) {
+            while (!busy.empty() &amp;&amp; busy.top().first &lt;= arrival[i]) {
+                avail.insert(busy.top().second); busy.pop();
+            }
+            if (avail.empty()) continue;                  // 全部在忙：丟掉
+            auto it = avail.lower_bound(i % k);
+            if (it == avail.end()) it = avail.begin();    // 繞回開頭
+            int s = *it; avail.erase(it);
+            cnt[s]++;
+            busy.push({(long long)arrival[i] + load[i], s});
+        }
+        int mx = *max_element(cnt.begin(), cnt.end());
+        vector&lt;int&gt; ans;
+        for (int i = 0; i &lt; k; i++) if (cnt[i] == mx) ans.push_back(i);
+        return ans;
+    }
+};
+</code></pre></div></section>
+</article>
+</main>
+<footer class="foot">影片與程式碼：<a href="https://www.youtube.com/@nn-leetcode" target="_blank" rel="noopener">@nn-leetcode</a> · 解答使用 C++</footer>
+<script src="../assets/site.js"></script>
+</body>
+</html>

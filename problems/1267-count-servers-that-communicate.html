@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>1267. Count Servers that Communicate 統計參與通信的伺服器 · 每日 LeetCode 筆記</title>
+<meta name="description" content="先數每一列、每一行各有幾台伺服器；一台伺服器只要所在的列或行超過一台，就能通訊。也介紹看成圖、DFS、並查集的另解。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC:wght@400;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="top"><a class="brand" href="../index.html">每日 LeetCode 筆記</a><nav><a href="../index.html">全部影片</a><a href="https://www.youtube.com/@nn-leetcode" target="_blank" rel="noopener">YouTube 頻道</a></nav></header>
+<main class="page">
+<article class="sheet">
+  <p class="crumb"><span class="series">每日一題</span><span class="date">2026-11-08</span></p>
+  <h1>1267. Count Servers that Communicate</h1>
+  <p class="zh">統計參與通信的伺服器 <span class="lv medium">Medium</span></p>
+  <p class="links"><a class="lc" href="https://leetcode.com/problems/count-servers-that-communicate/" target="_blank" rel="noopener">LeetCode 1267 ↗</a><a class="yt" href="https://www.youtube.com/watch?v=roRgkzN0-SY" target="_blank" rel="noopener">在 YouTube 觀看 ↗</a></p>
+  <div class="video"><iframe src="https://www.youtube-nocookie.com/embed/roRgkzN0-SY" title="1267. Count Servers that Communicate" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
+  <section class="note"><h2>重點</h2><p>先數每一列、每一行各有幾台伺服器；一台伺服器只要所在的列或行超過一台，就能通訊。也介紹看成圖、DFS、並查集的另解。</p><p class="tags"><span>計數</span><span>矩陣</span></p></section>
+  <section class="code"><h2>C++ 解答 <a class="dl" href="../solutions/1267-count-servers-that-communicate.cpp" download>下載 .cpp</a></h2><div class="pane" data-pane="0"><button class="copy" type="button">複製</button><pre><code class="language-cpp">class Solution {
+public:
+    int countServers(vector&lt;vector&lt;int&gt;&gt;&amp; grid) {
+        int m = grid.size(), n = grid[0].size();
+        vector&lt;int&gt; rowCnt(m, 0), colCnt(n, 0);
+        for (int i = 0; i &lt; m; i++)
+            for (int j = 0; j &lt; n; j++)
+                if (grid[i][j] == 1) {
+                    rowCnt[i]++;
+                    colCnt[j]++;
+                }
+        int ans = 0;
+        for (int i = 0; i &lt; m; i++)
+            for (int j = 0; j &lt; n; j++)
+                if (grid[i][j] == 1 &amp;&amp; (rowCnt[i] &gt; 1 || colCnt[j] &gt; 1))
+                    ans++;
+        return ans;
+    }
+};
+</code></pre></div></section>
+</article>
+</main>
+<footer class="foot">影片與程式碼：<a href="https://www.youtube.com/@nn-leetcode" target="_blank" rel="noopener">@nn-leetcode</a> · 解答使用 C++</footer>
+<script src="../assets/site.js"></script>
+</body>
+</html>

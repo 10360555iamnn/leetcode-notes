@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DP 刷題單 #1 · 入門 509 · 1137 · 70 · 746 · 每日 LeetCode 筆記</title>
+<meta name="description" content="從費氏數列認識動態規劃：遞迴 → 記憶化 → 由下而上填表 → 滾動變數。再用同一套想法解泰波那契、爬樓梯和最小花費爬樓梯。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC:wght@400;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="top"><a class="brand" href="../index.html">每日 LeetCode 筆記</a><nav><a href="../index.html">全部影片</a><a href="https://www.youtube.com/@nn-leetcode" target="_blank" rel="noopener">YouTube 頻道</a></nav></header>
+<main class="page">
+<article class="sheet">
+  <p class="crumb"><span class="series">動態規劃刷題單</span><span class="date">2026-11-08</span></p>
+  <h1>DP 刷題單 #1 · 入門</h1>
+  <p class="zh">509 · 1137 · 70 · 746 <span class="lv easy">Easy</span></p>
+  <p class="links"><a class="lc" href="https://leetcode.com/problems/fibonacci-number/" target="_blank" rel="noopener">LeetCode 509 ↗</a><a class="lc" href="https://leetcode.com/problems/n-th-tribonacci-number/" target="_blank" rel="noopener">LeetCode 1137 ↗</a><a class="lc" href="https://leetcode.com/problems/climbing-stairs/" target="_blank" rel="noopener">LeetCode 70 ↗</a><a class="lc" href="https://leetcode.com/problems/min-cost-climbing-stairs/" target="_blank" rel="noopener">LeetCode 746 ↗</a><a class="yt" href="https://www.youtube.com/watch?v=YIF6CpbAWoM" target="_blank" rel="noopener">在 YouTube 觀看 ↗</a></p>
+  <div class="video"><iframe src="https://www.youtube-nocookie.com/embed/YIF6CpbAWoM" title="DP 刷題單 #1 · 入門" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
+  <section class="note"><h2>重點</h2><p>從費氏數列認識動態規劃：遞迴 → 記憶化 → 由下而上填表 → 滾動變數。再用同一套想法解泰波那契、爬樓梯和最小花費爬樓梯。</p><p class="tags"><span>動態規劃</span><span>記憶化</span></p></section>
+  <section class="code"><h2>C++ 解答 <a class="dl" href="../solutions/dp01-intro.cpp" download>下載 .cpp</a></h2><div class="tabs" role="tablist"><button role="tab" aria-selected="true" data-tab="0">509 遞迴</button><button role="tab" aria-selected="false" data-tab="1">509 記憶化</button><button role="tab" aria-selected="false" data-tab="2">509 由下而上</button><button role="tab" aria-selected="false" data-tab="3">509 滾動變數</button><button role="tab" aria-selected="false" data-tab="4">1137 泰波那契</button><button role="tab" aria-selected="false" data-tab="5">70 爬樓梯</button><button role="tab" aria-selected="false" data-tab="6">746 最小花費爬樓梯</button></div><div class="pane" data-pane="0"><button class="copy" type="button">複製</button><pre><code class="language-cpp">int fib(int n) {
+    if (n &lt; 2) return n;
+    return fib(n - 1) + fib(n - 2);
+}
+</code></pre></div><div class="pane" data-pane="1" hidden><button class="copy" type="button">複製</button><pre><code class="language-cpp">int memo[31];            // -1 代表還沒算過
+int f(int n) {
+    if (n &lt; 2) return n;
+    if (memo[n] != -1) return memo[n];   // 算過 → 查表
+    return memo[n] = f(n - 1) + f(n - 2);
+}
+int fib(int n) {
+    memset(memo, -1, sizeof memo);
+    return f(n);
+}
+</code></pre></div><div class="pane" data-pane="2" hidden><button class="copy" type="button">複製</button><pre><code class="language-cpp">int fib(int n) {
+    if (n &lt; 2) return n;
+    vector&lt;int&gt; dp(n + 1);
+    dp[0] = 0, dp[1] = 1;
+    for (int i = 2; i &lt;= n; i++)
+        dp[i] = dp[i - 1] + dp[i - 2];
+    return dp[n];
+}
+</code></pre></div><div class="pane" data-pane="3" hidden><button class="copy" type="button">複製</button><pre><code class="language-cpp">int fib(int n) {
+    if (n &lt; 2) return n;
+    int a = 0, b = 1;        // a = F(i-2), b = F(i-1)
+    for (int i = 2; i &lt;= n; i++) {
+        int c = a + b;
+        a = b;
+        b = c;
+    }
+    return b;
+}
+</code></pre></div><div class="pane" data-pane="4" hidden><button class="copy" type="button">複製</button><pre><code class="language-cpp">int tribonacci(int n) {
+    if (n == 0) return 0;
+    if (n &lt;= 2) return 1;
+    int a = 0, b = 1, c = 1;
+    for (int i = 3; i &lt;= n; i++) {
+        int d = a + b + c;
+        a = b; b = c; c = d;
+    }
+    return c;
+}
+</code></pre></div><div class="pane" data-pane="5" hidden><button class="copy" type="button">複製</button><pre><code class="language-cpp">int climbStairs(int n) {
+    if (n &lt;= 2) return n;
+    int a = 1, b = 2;        // a = dp[i-2], b = dp[i-1]
+    for (int i = 3; i &lt;= n; i++) {
+        int c = a + b;
+        a = b;
+        b = c;
+    }
+    return b;
+}
+</code></pre></div><div class="pane" data-pane="6" hidden><button class="copy" type="button">複製</button><pre><code class="language-cpp">int minCostClimbingStairs(vector&lt;int&gt;&amp; cost) {
+    int n = cost.size();
+    int a = 0, b = 0;        // a = dp[i-2], b = dp[i-1]
+    for (int i = 2; i &lt;= n; i++) {
+        int c = min(b + cost[i - 1], a + cost[i - 2]);
+        a = b;
+        b = c;
+    }
+    return b;
+}
+</code></pre></div></section>
+</article>
+</main>
+<footer class="foot">影片與程式碼：<a href="https://www.youtube.com/@nn-leetcode" target="_blank" rel="noopener">@nn-leetcode</a> · 解答使用 C++</footer>
+<script src="../assets/site.js"></script>
+</body>
+</html>

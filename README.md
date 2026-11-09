@@ -1,0 +1,16 @@
+# 每日 LeetCode 筆記
+
+筆記風格的 LeetCode 中文講解影片與 C++ 解答。
+
+- YouTube：https://www.youtube.com/@nn-leetcode
+- 解答原始碼：[solutions/](solutions/)
+
+| 題目 | 難度 | 影片 |
+|---|---|---|
+| 42. Trapping Rain Water 接雨水 | Hard | [觀看](https://www.youtube.com/watch?v=JdA1rHWXLu4) |
+| 1882. Process Tasks Using Servers 使用伺服器處理任務 | Medium | [觀看](https://www.youtube.com/watch?v=kTIk9CW1vEI) |
+| 1267. Count Servers that Communicate 統計參與通信的伺服器 | Medium | [觀看](https://www.youtube.com/watch?v=roRgkzN0-SY) |
+| 1606. Find Servers That Handled Most Number of Requests 找到處理最多請求的伺服器 | Hard | [觀看](https://www.youtube.com/watch?v=KNG_UpoW31o) |
+| DP 刷題單 #1 · 入門 509 · 1137 · 70 · 746 | Easy | [觀看](https://www.youtube.com/watch?v=YIF6CpbAWoM) |
+| 198. House Robber 打家劫舍 | Medium | 即將上架 |
+| 213. House Robber II 打家劫舍 II | Medium | 即將上架 |

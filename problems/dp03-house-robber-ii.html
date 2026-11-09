@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>213. House Robber II 打家劫舍 II · 每日 LeetCode 筆記</title>
+<meta name="description" content="房子圍成一圈，第一間和最後一間不能同時偷。拆成「不偷最後一間」和「不偷第一間」兩條直線，各跑一次 198 再取較大值。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC:wght@400;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="top"><a class="brand" href="../index.html">每日 LeetCode 筆記</a><nav><a href="../index.html">全部影片</a><a href="https://www.youtube.com/@nn-leetcode" target="_blank" rel="noopener">YouTube 頻道</a></nav></header>
+<main class="page">
+<article class="sheet">
+  <p class="crumb"><span class="series">動態規劃刷題單</span></p>
+  <h1>213. House Robber II</h1>
+  <p class="zh">打家劫舍 II <span class="lv medium">Medium</span></p>
+  <p class="links"><a class="lc" href="https://leetcode.com/problems/house-robber-ii/" target="_blank" rel="noopener">LeetCode 213 ↗</a></p>
+  <div class="video soon"><span>影片即將上架</span></div>
+  <section class="note"><h2>重點</h2><p>房子圍成一圈，第一間和最後一間不能同時偷。拆成「不偷最後一間」和「不偷第一間」兩條直線，各跑一次 198 再取較大值。</p><p class="tags"><span>動態規劃</span></p></section>
+  <section class="code"><h2>C++ 解答 <a class="dl" href="../solutions/dp03-house-robber-ii.cpp" download>下載 .cpp</a></h2><div class="pane" data-pane="0"><button class="copy" type="button">複製</button><pre><code class="language-cpp">int robLine(vector&lt;int&gt;&amp; nums, int l, int r) {
+    int a = 0, b = 0;              // 上一集的滾動變數
+    for (int i = l; i &lt;= r; i++) {
+        int c = max(b, a + nums[i]);
+        a = b;
+        b = c;
+    }
+    return b;
+}
+int rob(vector&lt;int&gt;&amp; nums) {
+    int n = nums.size();
+    if (n == 1) return nums[0];
+    return max(robLine(nums, 0, n - 2),     // 不偷最後一間
+               robLine(nums, 1, n - 1));    // 不偷第 0 間
+}
+</code></pre></div></section>
+</article>
+</main>
+<footer class="foot">影片與程式碼：<a href="https://www.youtube.com/@nn-leetcode" target="_blank" rel="noopener">@nn-leetcode</a> · 解答使用 C++</footer>
+<script src="../assets/site.js"></script>
+</body>
+</html>

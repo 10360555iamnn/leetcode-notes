@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>42. Trapping Rain Water 接雨水 · 每日 LeetCode 筆記</title>
+<meta name="description" content="每一格能裝的水 = 左右最高牆的較小值 − 自己的高度。從暴力法一路優化到雙指針 O(n)、O(1) 空間，再用單調棧換個角度一層一層算。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC:wght@400;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="top"><a class="brand" href="../index.html">每日 LeetCode 筆記</a><nav><a href="../index.html">全部影片</a><a href="https://www.youtube.com/@nn-leetcode" target="_blank" rel="noopener">YouTube 頻道</a></nav></header>
+<main class="page">
+<article class="sheet">
+  <p class="crumb"><span class="series">經典題</span><span class="date">2026-11-07</span></p>
+  <h1>42. Trapping Rain Water</h1>
+  <p class="zh">接雨水 <span class="lv hard">Hard</span></p>
+  <p class="links"><a class="lc" href="https://leetcode.com/problems/trapping-rain-water/" target="_blank" rel="noopener">LeetCode 42 ↗</a><a class="yt" href="https://www.youtube.com/watch?v=JdA1rHWXLu4" target="_blank" rel="noopener">在 YouTube 觀看 ↗</a></p>
+  <div class="video"><iframe src="https://www.youtube-nocookie.com/embed/JdA1rHWXLu4" title="42. Trapping Rain Water" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
+  <section class="note"><h2>重點</h2><p>每一格能裝的水 = 左右最高牆的較小值 − 自己的高度。從暴力法一路優化到雙指針 O(n)、O(1) 空間，再用單調棧換個角度一層一層算。</p><p class="tags"><span>雙指針</span><span>單調棧</span><span>前綴最大值</span></p></section>
+  <section class="code"><h2>C++ 解答 <a class="dl" href="../solutions/0042-trapping-rain-water.cpp" download>下載 .cpp</a></h2><div class="tabs" role="tablist"><button role="tab" aria-selected="true" data-tab="0">暴力法 O(n²)</button><button role="tab" aria-selected="false" data-tab="1">前綴最大值 O(n)</button><button role="tab" aria-selected="false" data-tab="2">雙指針 O(1) 空間</button><button role="tab" aria-selected="false" data-tab="3">單調棧</button></div><div class="pane" data-pane="0"><button class="copy" type="button">複製</button><pre><code class="language-cpp">int trap(vector&lt;int&gt;&amp; height) {
+    int n = height.size(), ans = 0;
+    for (int i = 0; i &lt; n; i++) {
+        int lMax = 0, rMax = 0;
+        for (int j = i; j &gt;= 0; j--)  // 往左找最高
+            lMax = max(lMax, height[j]);
+        for (int j = i; j &lt; n; j++)   // 往右找最高
+            rMax = max(rMax, height[j]);
+        ans += min(lMax, rMax) - height[i];
+    }
+    return ans;
+}
+</code></pre></div><div class="pane" data-pane="1" hidden><button class="copy" type="button">複製</button><pre><code class="language-cpp">int trap(vector&lt;int&gt;&amp; height) {
+    int n = height.size();
+    vector&lt;int&gt; leftMax(n), rightMax(n);
+    leftMax[0] = height[0];
+    for (int i = 1; i &lt; n; i++)
+        leftMax[i] = max(leftMax[i - 1], height[i]);
+    rightMax[n - 1] = height[n - 1];
+    for (int i = n - 2; i &gt;= 0; i--)
+        rightMax[i] = max(rightMax[i + 1], height[i]);
+    int ans = 0;
+    for (int i = 0; i &lt; n; i++)
+        ans += min(leftMax[i], rightMax[i]) - height[i];
+    return ans;
+}
+</code></pre></div><div class="pane" data-pane="2" hidden><button class="copy" type="button">複製</button><pre><code class="language-cpp">int trap(vector&lt;int&gt;&amp; height) {
+    int l = 0, r = height.size() - 1;
+    int lMax = 0, rMax = 0, ans = 0;
+    while (l &lt; r) {
+        lMax = max(lMax, height[l]);
+        rMax = max(rMax, height[r]);
+        if (lMax &lt; rMax) {     // 左邊比較矮
+            ans += lMax - height[l];
+            l++;
+        } else {               // 右邊比較矮
+            ans += rMax - height[r];
+            r--;
+        }
+    }
+    return ans;
+}
+</code></pre></div><div class="pane" data-pane="3" hidden><button class="copy" type="button">複製</button><pre><code class="language-cpp">int trap(vector&lt;int&gt;&amp; height) {
+    stack&lt;int&gt; st;    // 存 index，高度遞減
+    int ans = 0;
+    for (int i = 0; i &lt; height.size(); i++) {
+        while (!st.empty() &amp;&amp; height[i] &gt; height[st.top()]) {
+            int bottom = st.top(); st.pop();
+            if (st.empty()) break;   // 沒有左牆
+            int left = st.top();
+            int w = i - left - 1;
+            int h = min(height[left], height[i]) - height[bottom];
+            ans += w * h;
+        }
+        st.push(i);
+    }
+    return ans;
+}
+</code></pre></div></section>
+</article>
+</main>
+<footer class="foot">影片與程式碼：<a href="https://www.youtube.com/@nn-leetcode" target="_blank" rel="noopener">@nn-leetcode</a> · 解答使用 C++</footer>
+<script src="../assets/site.js"></script>
+</body>
+</html>
