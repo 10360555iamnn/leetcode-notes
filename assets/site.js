@@ -75,6 +75,17 @@ $$('.copy').forEach(b => b.addEventListener('click', async () => {
 
 // 熱力圖在窄螢幕要捲動時，預設顯示最近的日期
 $$('.heat-scroll').forEach(el => { el.scrollLeft = el.scrollWidth; });
+// 點熱力圖格子：顯示當天發佈的影片（再點一次收起）
+$$('.heat-grid i').forEach(cell => cell.addEventListener('click', () => {
+  const day = cell.dataset.day, was = cell.classList.contains('sel');
+  $$('.heat-grid i.sel').forEach(c => c.classList.remove('sel'));
+  $$('.heat-day').forEach(p => { p.hidden = true; });
+  if (was) return;
+  cell.classList.add('sel');
+  const panel = $(`.heat-day[data-day="${day}"]`);
+  if (panel) panel.hidden = false;
+  else { const none = $('.heat-none'); $('span', none).textContent = day.replace(/-/g, '/'); none.hidden = false; }
+}));
 
 // ---- 題目清單：排序與難度篩選 ----
 const prList = $('#pr-list');

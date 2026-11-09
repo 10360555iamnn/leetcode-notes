@@ -236,6 +236,16 @@ button { font: inherit; }
 .heat .l2 { background: var(--red-1); }
 .heat .l3 { background: #c81e1e; }
 .heat-grid i:hover { outline: 2px solid var(--text); outline-offset: -1px; }
+.heat-grid i { cursor: pointer; }
+.heat-grid i.sel { outline: 2px solid var(--text); outline-offset: 1px; }
+.heat-day { margin-top: 12px; padding-top: 12px; border-top: 1px dashed var(--red-4); }
+.heat-day-head { display: flex; align-items: center; gap: 6px; font-weight: 700; color: var(--red-1); font-size: 14px; }
+.heat-day ul { list-style: none; margin: 8px 0 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+.heat-day a { display: flex; align-items: center; gap: 12px; padding: 6px 8px; border-radius: 8px; color: var(--text); }
+.heat-day a:hover { background: var(--red-5); }
+.heat-day img { width: 88px; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 6px; flex-shrink: 0; filter: var(--img-filter); }
+.heat-day b { display: block; color: var(--red-1); font-size: 14.5px; }
+.heat-day small { color: var(--grey); font-size: 12.5px; }
 .heat-foot { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; margin-top: 8px; font-size: 13px; color: var(--grey); }
 .heat-legend { display: inline-flex; align-items: center; gap: 4px; }
 .about-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 18px 0 4px; }
