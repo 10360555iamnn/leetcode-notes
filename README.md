@@ -7,6 +7,7 @@ LeetCode 中文講解影片與 C++ 解答。
 
 | 題目 | 難度 | 影片 |
 |---|---|---|
+| 3789. Minimum Cost to Acquire Required Items 取得所需物品的最小花費 | Medium | [觀看](https://www.youtube.com/watch?v=jPErfmCV3XI) |
 | DP 刷題單 #4 · 計數型爬樓梯 2466 · 91 | Medium | [觀看](https://www.youtube.com/watch?v=TusqfvDaoJs) |
 | 3693. Climbing Stairs II 爬樓梯 II | Medium | [觀看](https://www.youtube.com/watch?v=ylDTawtzabo) |
 | DP 刷題單 #3 · 740. Delete and Earn 刪除並獲得點數 | Medium | [觀看](https://www.youtube.com/watch?v=jV5slCtFE6E) |

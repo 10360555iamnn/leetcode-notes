@@ -108,7 +108,7 @@ if (prList) {
 }
 
 // ---- 站內搜尋（Ctrl+K 或 / 開啟） ----
-const ALIAS = { 動態規劃: 'dp dynamic programming', 優先佇列: 'heap 堆積 priority_queue pq', 雙指針: 'two pointers 雙指標', 單調棧: 'monotonic stack 單調堆疊 stack', 有序集合: 'set ordered set', 模擬: 'simulation', 記憶化: 'memo memoization', 計數: 'count', 矩陣: 'matrix grid', 前綴最大值: 'prefix max 前綴' };
+const ALIAS = { 動態規劃: 'dp dynamic programming', 優先佇列: 'heap 堆積 priority_queue pq', 雙指針: 'two pointers 雙指標', 單調棧: 'monotonic stack 單調堆疊 stack', 有序集合: 'set ordered set', 模擬: 'simulation', 記憶化: 'memo memoization', 計數: 'count', 矩陣: 'matrix grid', 前綴最大值: 'prefix max 前綴', 數學: 'math', 貪心: 'greedy 貪婪' };
 const ROOT = document.body.dataset.root || '';
 const IDX = (window.SEARCH_INDEX || []).map(it => ({ ...it,
   hay: [it.title, it.zh, it.series, it.level, it.desc, ...it.tags, ...it.tags.map(t => ALIAS[t] || ''), ...it.nums.map(String)].join(' ').toLowerCase() }));
