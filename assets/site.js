@@ -23,28 +23,51 @@ addEventListener('scroll', () => {
   lastY = y;
 }, { passive: true });
 
-// 首頁：依網址 #系列 或 #tag:標籤 篩選
-function applyFilter() {
+// 首頁：依網址 #系列 或 #tag:標籤 篩選，再用 ?page=N 分頁（一頁 10 篇）
+const PER_PAGE = 10;
+const curPage = () => Math.max(1, parseInt(new URLSearchParams(location.search).get('page'), 10) || 1);
+function gotoPage(n) {
+  const u = new URL(location.href);
+  if (n > 1) u.searchParams.set('page', n); else u.searchParams.delete('page');
+  history.pushState(null, '', u);
+  applyFilter(true);
+}
+function applyFilter(fromPager) {
   const posts = $$('.post');
   if (!posts.length) return;
   const key = decodeURIComponent(location.hash.slice(1));
   const isTag = key.startsWith('tag:'), val = isTag ? key.slice(4) : key;
   const valid = val && val !== 'categories' && posts.some(p => (isTag ? p.dataset.tags.split('|') : [p.dataset.series]).includes(val));
-  let n = 0;
-  posts.forEach(p => {
-    const show = !valid || (isTag ? p.dataset.tags.split('|').includes(val) : p.dataset.series === val);
-    p.hidden = !show; if (show) n++;
-  });
-  // 篩選後重新左右交錯
-  posts.filter(p => !p.hidden).forEach((p, i) => { p.classList.toggle('left', i % 2 === 0); p.classList.toggle('right', i % 2 === 1); });
+  const match = posts.filter(p => !valid || (isTag ? p.dataset.tags.split('|').includes(val) : p.dataset.series === val));
+  const pages = Math.max(1, Math.ceil(match.length / PER_PAGE));
+  const page = Math.min(curPage(), pages);
+  const shown = match.slice((page - 1) * PER_PAGE, page * PER_PAGE);
+  posts.forEach(p => { p.hidden = !shown.includes(p); });
+  // 重新左右交錯
+  shown.forEach((p, i) => { p.classList.toggle('left', i % 2 === 0); p.classList.toggle('right', i % 2 === 1); });
+  const pager = $('#pager');
+  if (pager) {
+    const btn = (n, txt, aria) => `<button type="button" data-page="${n}"${aria ? ` class="arrow" aria-label="${aria}"` : n === page ? ' aria-current="page"' : ''}>${txt}</button>`;
+    pager.innerHTML = (page > 1 ? btn(page - 1, '‹', '上一頁') : '')
+      + Array.from({ length: pages }, (_, i) => btn(i + 1, i + 1)).join('')
+      + (page < pages ? btn(page + 1, '›', '下一頁') : '');
+    $$('button', pager).forEach(b => b.addEventListener('click', () => gotoPage(+b.dataset.page)));
+  }
   const head = $('#cat-head');
   head.hidden = !valid;
-  if (valid) { $('#cat-title').textContent = (isTag ? '# ' : '') + val; $('#cat-count').textContent = `${n} 支影片`; }
+  if (valid) { $('#cat-title').textContent = (isTag ? '# ' : '') + val; $('#cat-count').textContent = `${match.length} 支影片`; }
   $$('.side-nav a').forEach(a => a.classList.toggle('on', valid ? a.dataset.seriesLink === val : !a.dataset.seriesLink));
-  if (valid) head.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  if (fromPager === true) (valid ? head : $('.posts')).scrollIntoView({ behavior: 'smooth', block: 'start' });
+  else if (valid) head.scrollIntoView({ behavior: 'smooth', block: 'start' });
   $('#nav-links')?.classList.remove('open');
 }
-addEventListener('hashchange', applyFilter);
+// 換篩選條件就回到第 1 頁
+addEventListener('hashchange', () => {
+  const u = new URL(location.href);
+  if (u.searchParams.has('page')) { u.searchParams.delete('page'); history.replaceState(null, '', u); }
+  applyFilter();
+});
+addEventListener('popstate', () => applyFilter(true));
 applyFilter();
 
 // 程式碼分頁

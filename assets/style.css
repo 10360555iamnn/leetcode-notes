@@ -167,6 +167,14 @@ button { font: inherit; }
 .cat-head p { font-size: 17px; margin-top: -24px; }
 .cat-head a { color: #fff; font-size: 14px; position: absolute; right: 18px; bottom: 12px; opacity: .85; }
 
+/* ---- 首頁分頁 ---- */
+.pager { display: flex; justify-content: center; flex-wrap: wrap; gap: 8px; margin-top: 32px; padding: 12px; border-radius: var(--radius); background: var(--wrap); box-shadow: var(--shadow); }
+.pager:empty { display: none; }
+.pager button { min-width: 40px; height: 40px; padding: 0 10px; border: 0; border-radius: 8px; background: transparent; color: var(--text); font: 700 15px/1 "Mulish", sans-serif; cursor: pointer; transition: background .2s, color .2s; }
+.pager button:hover { background: var(--red-5); color: var(--red-1); }
+.pager button[aria-current="page"] { background: #c62a35; color: #fff; box-shadow: var(--red-glow); cursor: default; }
+.pager button.arrow { font-size: 22px; }
+
 /* ---- 文章頁 ---- */
 .article { background: var(--wrap); border-radius: var(--radius); box-shadow: var(--shadow); padding: 26px 34px 34px; transition: background .3s; }
 .art-cat { margin: 0; }
