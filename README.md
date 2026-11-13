@@ -7,6 +7,7 @@ LeetCode 中文講解影片與 C++ 解答。
 
 | 題目 | 難度 | 影片 |
 |---|---|---|
+| 3420. Count Non-Decreasing Subarrays After K Operations 操作後的非遞減子陣列數量 | Hard | [觀看](https://www.youtube.com/watch?v=XqgVikmWHKM) |
 | 3105. Longest Strictly Increasing or Strictly Decreasing Subarray 最長的嚴格遞增或遞減子陣列 | Easy | [觀看](https://www.youtube.com/watch?v=Ga_wB7kklQ4) |
 | 3789. Minimum Cost to Acquire Required Items 取得所需物品的最小花費 | Medium | [觀看](https://www.youtube.com/watch?v=jPErfmCV3XI) |
 | DP 刷題單 #4 · 計數型爬樓梯 2466 · 91 | Medium | [觀看](https://www.youtube.com/watch?v=TusqfvDaoJs) |
