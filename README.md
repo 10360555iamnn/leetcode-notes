@@ -7,6 +7,7 @@ LeetCode 中文講解影片與 C++ 解答。
 
 | 題目 | 難度 | 影片 |
 |---|---|---|
+| 2911. Minimum Changes to Make K Semi-palindromes 得到 K 個半回文串的最少修改次數 | Hard | [觀看](https://www.youtube.com/watch?v=gNgSqzlA5dg) |
 | 2243. Calculate Digit Sum of a String 計算字串的數字和 | Easy | [觀看](https://www.youtube.com/watch?v=Jncsay1wvPU) |
 | 1524. Number of Sub-arrays With Odd Sum 和為奇數的子陣列數目 | Medium | [觀看](https://www.youtube.com/watch?v=ShDg0YGWhMM) |
 | 3364. Minimum Positive Sum Subarray 最小正和子陣列 | Easy | [觀看](https://www.youtube.com/watch?v=SBidfObE84w) |
