@@ -7,7 +7,7 @@ LeetCode 中文講解影片與 C++ 解答。
 
 | 題目 | 難度 | 影片 |
 |---|---|---|
-| 2567. Minimum Score by Changing Two Elements 修改兩個元素的最小分數 | Medium | 即將上架 |
+| 2567. Minimum Score by Changing Two Elements 修改兩個元素的最小分數 | Medium | [觀看](https://www.youtube.com/watch?v=02haaxOaWts) |
 | 2914. Minimum Number of Changes to Make Binary String Beautiful 使二進位字串變美麗的最少修改次數 | Medium | [觀看](https://www.youtube.com/watch?v=-3hZMw6U-1Y) |
 | 2911. Minimum Changes to Make K Semi-palindromes 得到 K 個半回文串的最少修改次數 | Hard | [觀看](https://www.youtube.com/watch?v=gNgSqzlA5dg) |
 | 2243. Calculate Digit Sum of a String 計算字串的數字和 | Easy | [觀看](https://www.youtube.com/watch?v=Jncsay1wvPU) |
