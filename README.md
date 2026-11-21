@@ -7,6 +7,7 @@ LeetCode 中文講解影片與 C++ 解答。
 
 | 題目 | 難度 | 影片 |
 |---|---|---|
+| 3331. Find Subtree Sizes After Changes 修改後的子樹大小 | Medium | [觀看](https://www.youtube.com/watch?v=sxCylLPdw7g) |
 | 3041. Maximize Consecutive Elements in an Array After Modification 修改陣列後最大化陣列中的連續元素數目 | Hard | [觀看](https://www.youtube.com/watch?v=8VkGDKjRPr4) |
 | 2567. Minimum Score by Changing Two Elements 修改兩個元素的最小分數 | Medium | [觀看](https://www.youtube.com/watch?v=02haaxOaWts) |
 | 2914. Minimum Number of Changes to Make Binary String Beautiful 使二進位字串變美麗的最少修改次數 | Medium | [觀看](https://www.youtube.com/watch?v=-3hZMw6U-1Y) |
