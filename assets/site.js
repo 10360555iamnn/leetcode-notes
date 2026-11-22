@@ -125,7 +125,13 @@ if (prList) {
   $$('.pr-tabs [data-sort]').forEach(b => b.addEventListener('click', () => {
     $$('.pr-tabs [data-sort]').forEach(x => x.setAttribute('aria-selected', String(x === b)));
     const items = $$('li', prList);
-    items.sort(b.dataset.sort === 'num' ? (x, y) => x.dataset.n - y.dataset.n : (x, y) => y.dataset.date.localeCompare(x.dataset.date) || y.dataset.n - x.dataset.n);
+    const LV = { Easy: 0, Medium: 1, Hard: 2 };   // 依難易度：Easy → Medium → Hard，同難度再依題號
+    const by = {
+      num: (x, y) => x.dataset.n - y.dataset.n,
+      level: (x, y) => (LV[x.dataset.lv] ?? 9) - (LV[y.dataset.lv] ?? 9) || x.dataset.n - y.dataset.n,
+      date: (x, y) => y.dataset.date.localeCompare(x.dataset.date) || y.dataset.n - x.dataset.n,
+    };
+    items.sort(by[b.dataset.sort] || by.date);
     items.forEach(li => prList.appendChild(li));
   }));
 }
