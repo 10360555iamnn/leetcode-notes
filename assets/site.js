@@ -122,18 +122,34 @@ if (prList) {
     $('#pr-clear')?.addEventListener('click', e => { e.preventDefault(); lvF = null; render(); });
   };
   $$('.lv-box').forEach(b => b.addEventListener('click', () => { lvF = lvF === b.dataset.filter ? null : b.dataset.filter; render(); }));
-  $$('.pr-tabs [data-sort]').forEach(b => b.addEventListener('click', () => {
-    $$('.pr-tabs [data-sort]').forEach(x => x.setAttribute('aria-selected', String(x === b)));
-    const items = $$('li', prList);
-    const LV = { Easy: 0, Medium: 1, Hard: 2 };   // 依難易度：Easy → Medium → Hard，同難度再依題號
-    const by = {
-      num: (x, y) => x.dataset.n - y.dataset.n,
-      level: (x, y) => (LV[x.dataset.lv] ?? 9) - (LV[y.dataset.lv] ?? 9) || x.dataset.n - y.dataset.n,
-      date: (x, y) => y.dataset.date.localeCompare(x.dataset.date) || y.dataset.n - x.dataset.n,
-    };
-    items.sort(by[b.dataset.sort] || by.date);
+  // 排序：點別的按鈕換排序方式，再點同一個按鈕就反過來（箭頭顯示目前方向）
+  const LV = { Easy: 0, Medium: 1, Hard: 2 };
+  const by = {
+    num: (x, y) => x.dataset.n - y.dataset.n,                                                      // 題號小 → 大
+    level: (x, y) => (LV[x.dataset.lv] ?? 9) - (LV[y.dataset.lv] ?? 9) || x.dataset.n - y.dataset.n, // 簡單 → 困難
+    date: (x, y) => y.dataset.date.localeCompare(x.dataset.date) || y.dataset.n - x.dataset.n,     // 新 → 舊
+  };
+  const ARROW = '<svg class="sort-dir" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 4v16M2.5 16.5 6 20l3.5-3.5"/><path d="M13 6h9M13 12h6M13 18h3"/></svg>';
+  const tabs = $$('.pr-tabs [data-sort]');
+  let sortKey = 'date', desc = false;
+  const sortList = () => {
+    tabs.forEach(x => {
+      const on = x.dataset.sort === sortKey;
+      x.setAttribute('aria-selected', String(on));
+      const old = x.querySelector('.sort-dir');
+      if (old) old.outerHTML = '';
+      if (on) { x.insertAdjacentHTML('beforeend', ARROW); x.classList.toggle('desc', desc); x.title = '再點一次反向排序'; }
+      else { x.classList.toggle('desc', false); x.removeAttribute('title'); }
+    });
+    const cmp = by[sortKey] || by.date, items = $$('li', prList);
+    items.sort(desc ? (x, y) => cmp(y, x) : cmp);
     items.forEach(li => prList.appendChild(li));
+  };
+  tabs.forEach(b => b.addEventListener('click', () => {
+    if (b.dataset.sort === sortKey) desc = !desc; else { sortKey = b.dataset.sort; desc = false; }
+    sortList();
   }));
+  sortList();
 }
 
 // ---- 站內搜尋（Ctrl+K 或 / 開啟） ----
