@@ -34,7 +34,7 @@
     <h1>1524. Number of Sub-arrays With Odd Sum</h1>
     <p class="banner-sub">和為奇數的子陣列數目</p>
     <div class="art-meta">
-      <span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>2026-11-15</span><span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>8 分鐘</span><span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 8l-5 4 5 4M16 8l5 4-5 4M14 5l-4 14"/></svg>1 段程式碼</span><span class="lv medium">Medium</span>
+      <span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>2026-11-15</span><span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>8 分鐘</span><span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 8l-5 4 5 4M16 8l5 4-5 4M14 5l-4 14"/></svg>2 段程式碼</span><span class="lv medium">Medium</span>
     </div>
   </div>
 </section>
@@ -63,7 +63,7 @@
 </div>
 <div class="side-card widget toc">
   <h3><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg>目錄</h3>
-  <ol><li><a href="#video">講解影片</a></li><li><a href="#notes">重點整理</a></li><li><a href="#code">C++ 解答</a></li></ol>
+  <ol><li><a href="#video">講解影片</a></li><li><a href="#notes">重點整理</a></li><li><a href="#code">C++ 解答</a></li><li class="sub"><a href="#code" data-goto-tab="0">直覺解法：枚舉 O(n²)</a></li><li class="sub"><a href="#code" data-goto-tab="1">前綴和 + 奇偶配對 O(n)</a></li></ol>
 </div>
 </div></aside>
 <main class="main">
@@ -76,7 +76,22 @@
     <p>子陣列總和 = 兩個前綴和相減，相減是奇數 ⇔ 兩個前綴和一奇一偶。從左掃到右，只記前綴和的奇偶，以及前面出現過幾個奇數、幾個偶數（P[0] = 0 算一個偶數），現在是奇數就加上偶數的個數、反之亦然。O(n) 時間、O(1) 空間，答案記得取餘數。</p>
     <p class="art-tags"><a href="../index.html#tag%3A%E5%89%8D%E7%B6%B4%E5%92%8C"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12V3h9l9 9-9 9z"/><circle cx="8" cy="8" r="1.5"/></svg>前綴和</a><a href="../index.html#tag%3A%E6%95%B8%E5%AD%B8"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12V3h9l9 9-9 9z"/><circle cx="8" cy="8" r="1.5"/></svg>數學</a><a href="../index.html#tag%3A%E8%A8%88%E6%95%B8"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12V3h9l9 9-9 9z"/><circle cx="8" cy="8" r="1.5"/></svg>計數</a></p>
     <h2 class="sec" id="code">C++ 解答 <a class="dl" href="../solutions/1524-number-of-sub-arrays-with-odd-sum.cpp" download>下載 .cpp</a></h2>
-    <div class="code"><div class="pane" data-pane="0"><div class="pane-bar"><span class="dots"><i></i><i></i><i></i></span><span>C++ · 前綴和 + 奇偶配對 O(n)</span><button class="copy" type="button">複製</button></div><pre><code class="language-cpp">class Solution {
+    <div class="code"><div class="tabs" role="tablist"><button role="tab" aria-selected="true" data-tab="0">直覺解法：枚舉 O(n²)</button><button role="tab" aria-selected="false" data-tab="1">前綴和 + 奇偶配對 O(n)</button></div><div class="pane" data-pane="0"><div class="pane-bar"><span class="dots"><i></i><i></i><i></i></span><span>C++</span><button class="copy" type="button">複製</button></div><pre><code class="language-cpp">class Solution {
+public:
+    int numOfSubarrays(vector&lt;int&gt;&amp; arr) {      // 直覺解法：枚舉每一段，O(n²) 會超時，僅供理解
+        int n = arr.size();
+        long long ans = 0;
+        for (int i = 0; i &lt; n; i++) {
+            int sum = 0;
+            for (int j = i; j &lt; n; j++) {
+                sum += arr[j];
+                if (sum % 2 == 1) ans++;
+            }
+        }
+        return ans % 1000000007;
+    }
+};
+</code></pre></div><div class="pane" data-pane="1" hidden><div class="pane-bar"><span class="dots"><i></i><i></i><i></i></span><span>C++</span><button class="copy" type="button">複製</button></div><pre><code class="language-cpp">class Solution {
 public:
     int numOfSubarrays(vector&lt;int&gt;&amp; arr) {
         const int MOD = 1000000007;

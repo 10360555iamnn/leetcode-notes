@@ -34,7 +34,7 @@
     <h1>2124. Check if All A's Appears Before All B's</h1>
     <p class="banner-sub">檢查是否所有 A 都在 B 之前</p>
     <div class="art-meta">
-      <span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>2026-11-22</span><span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>6 分鐘</span><span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 8l-5 4 5 4M16 8l5 4-5 4M14 5l-4 14"/></svg>1 段程式碼</span><span class="lv easy">Easy</span>
+      <span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>2026-11-22</span><span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>6 分鐘</span><span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 8l-5 4 5 4M16 8l5 4-5 4M14 5l-4 14"/></svg>2 段程式碼</span><span class="lv easy">Easy</span>
     </div>
   </div>
 </section>
@@ -63,7 +63,7 @@
 </div>
 <div class="side-card widget toc">
   <h3><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg>目錄</h3>
-  <ol><li><a href="#video">講解影片</a></li><li><a href="#notes">重點整理</a></li><li><a href="#code">C++ 解答</a></li></ol>
+  <ol><li><a href="#video">講解影片</a></li><li><a href="#notes">重點整理</a></li><li><a href="#code">C++ 解答</a></li><li class="sub"><a href="#code" data-goto-tab="0">做法一：檢查每一對 O(n²)</a></li><li class="sub"><a href="#code" data-goto-tab="1">做法二：找相鄰的 ba O(n)</a></li></ol>
 </div>
 </div></aside>
 <main class="main">
@@ -76,7 +76,17 @@
     <p>最直接的做法是檢查所有 (i, j) 配對有沒有 b 在 a 前面，O(n²)。關鍵觀察：只要有 b 出現在 a 前面，中間某處一定有相鄰的「ba」，所以只要掃一次看相鄰兩個字母，O(n) 時間、O(1) 空間。</p>
     <p class="art-tags"><a href="../index.html#tag%3A%E5%AD%97%E4%B8%B2"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12V3h9l9 9-9 9z"/><circle cx="8" cy="8" r="1.5"/></svg>字串</a><a href="../index.html#tag%3A%E4%B8%80%E6%AC%A1%E6%8E%83%E6%8F%8F"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12V3h9l9 9-9 9z"/><circle cx="8" cy="8" r="1.5"/></svg>一次掃描</a></p>
     <h2 class="sec" id="code">C++ 解答 <a class="dl" href="../solutions/2124-check-if-all-as-appears-before-all-bs.cpp" download>下載 .cpp</a></h2>
-    <div class="code"><div class="pane" data-pane="0"><div class="pane-bar"><span class="dots"><i></i><i></i><i></i></span><span>C++ · 找相鄰的 ba O(n)</span><button class="copy" type="button">複製</button></div><pre><code class="language-cpp">class Solution {
+    <div class="code"><div class="tabs" role="tablist"><button role="tab" aria-selected="true" data-tab="0">做法一：檢查每一對 O(n²)</button><button role="tab" aria-selected="false" data-tab="1">做法二：找相鄰的 ba O(n)</button></div><div class="pane" data-pane="0"><div class="pane-bar"><span class="dots"><i></i><i></i><i></i></span><span>C++</span><button class="copy" type="button">複製</button></div><pre><code class="language-cpp">class Solution {
+public:
+    bool checkString(string s) {
+        int n = s.size();
+        for (int i = 0; i &lt; n; i++)              // 檢查每一對 (i, j)
+            for (int j = i + 1; j &lt; n; j++)
+                if (s[i] == 'b' &amp;&amp; s[j] == 'a') return false;   // b 在 a 前面
+        return true;
+    }
+};
+</code></pre></div><div class="pane" data-pane="1" hidden><div class="pane-bar"><span class="dots"><i></i><i></i><i></i></span><span>C++</span><button class="copy" type="button">複製</button></div><pre><code class="language-cpp">class Solution {
 public:
     bool checkString(string s) {
         for (int i = 0; i + 1 &lt; s.size(); i++)

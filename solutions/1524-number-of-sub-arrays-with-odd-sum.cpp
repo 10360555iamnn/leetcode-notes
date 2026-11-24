@@ -1,3 +1,20 @@
+// ===== 直覺解法：枚舉 O(n²) =====
+class Solution {
+public:
+    int numOfSubarrays(vector<int>& arr) {      // 直覺解法：枚舉每一段，O(n²) 會超時，僅供理解
+        int n = arr.size();
+        long long ans = 0;
+        for (int i = 0; i < n; i++) {
+            int sum = 0;
+            for (int j = i; j < n; j++) {
+                sum += arr[j];
+                if (sum % 2 == 1) ans++;
+            }
+        }
+        return ans % 1000000007;
+    }
+};
+
 // ===== 前綴和 + 奇偶配對 O(n) =====
 class Solution {
 public:

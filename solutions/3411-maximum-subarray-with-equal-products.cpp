@@ -1,4 +1,25 @@
-// ===== 滑動視窗 + 質數最後位置 O(n) =====
+// ===== 做法一：每一段都算算看 =====
+class Solution {
+public:
+    int maxLength(vector<int>& nums) {
+        int n = nums.size(), ans = 0;
+        for (int i = 0; i < n; i++) {            // 每一段都算算看
+            long long prod = 1;
+            int g = 0, l = 1;                    // g：gcd，l：lcm
+            for (int j = i; j < n; j++) {
+                prod *= nums[j];
+                g = gcd(g, nums[j]);
+                l = lcm(l, nums[j]);
+                if (prod > 25200) break;         // 2520 × 10，乘積再大也不可能相等
+                if (prod == (long long)l * g)
+                    ans = max(ans, j - i + 1);
+            }
+        }
+        return ans;
+    }
+};
+
+// ===== 做法二：滑動視窗 O(n) =====
 class Solution {
 public:
     int maxLength(vector<int>& nums) {
