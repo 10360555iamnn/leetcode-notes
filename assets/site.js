@@ -10,16 +10,29 @@ $('#theme-btn')?.addEventListener('click', () => {
 });
 
 // 手機選單
+const menuOpen = () => $('#nav-links')?.classList.contains('open');
+function closeMenu() {
+  if (!menuOpen()) return;
+  $('#nav-links').classList.remove('open');
+  $('#menu-btn')?.setAttribute('aria-expanded', 'false');
+}
 $('#menu-btn')?.addEventListener('click', e => {
   const open = $('#nav-links').classList.toggle('open');
   e.currentTarget.setAttribute('aria-expanded', String(open));
+  menuY = scrollY;
 });
+// 選單打開時，在選單外面點一下或上下滑動就收起來
+let menuY = 0, touchY = null;
+document.addEventListener('pointerdown', e => { if (menuOpen() && !$('#nav').contains(e.target)) closeMenu(); });
+document.addEventListener('touchstart', e => { touchY = $('#nav').contains(e.target) ? null : e.touches[0].clientY; }, { passive: true });
+document.addEventListener('touchmove', e => { if (touchY !== null && Math.abs(e.touches[0].clientY - touchY) > 8) closeMenu(); }, { passive: true });
 
 // 往下捲時藏起導覽列，往上捲再出現
 let lastY = scrollY;
 addEventListener('scroll', () => {
   const y = scrollY;
-  $('#nav')?.classList.toggle('hide', y > lastY && y > 200 && !$('#nav-links').classList.contains('open'));
+  if (menuOpen() && Math.abs(y - menuY) > 30) closeMenu();   // 頁面捲動了也收起選單
+  $('#nav')?.classList.toggle('hide', y > lastY && y > 200 && !menuOpen());
   lastY = y;
 }, { passive: true });
 
