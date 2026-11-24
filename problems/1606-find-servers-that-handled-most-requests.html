@@ -34,7 +34,7 @@
     <h1>1606. Find Servers That Handled Most Number of Requests</h1>
     <p class="banner-sub">找到處理最多請求的伺服器</p>
     <div class="art-meta">
-      <span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>2026-11-09</span><span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>11 分鐘</span><span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 8l-5 4 5 4M16 8l5 4-5 4M14 5l-4 14"/></svg>1 段程式碼</span><span class="lv hard">Hard</span>
+      <span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>2026-11-09</span><span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>11 分鐘</span><span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 8l-5 4 5 4M16 8l5 4-5 4M14 5l-4 14"/></svg>2 段程式碼</span><span class="lv hard">Hard</span>
     </div>
   </div>
 </section>
@@ -63,7 +63,7 @@
 </div>
 <div class="side-card widget toc">
   <h3><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg>目錄</h3>
-  <ol><li><a href="#video">講解影片</a></li><li><a href="#notes">重點整理</a></li><li><a href="#code">C++ 解答</a></li></ol>
+  <ol><li><a href="#video">講解影片</a></li><li><a href="#notes">重點整理</a></li><li><a href="#code">C++ 解答</a></li><li class="sub"><a href="#code" data-goto-tab="0">set + 最小堆積</a></li><li class="sub"><a href="#code" data-goto-tab="1">另解：只用兩個堆積</a></li></ol>
 </div>
 </div></aside>
 <main class="main">
@@ -76,7 +76,7 @@
     <p>忙碌的伺服器放進按結束時間排序的堆積，空閒的伺服器放進有序集合，用 lower_bound 找「從 i % k 開始往後第一台」空閒伺服器，找不到就繞回開頭。</p>
     <p class="art-tags"><a href="../index.html#tag%3A%E6%9C%89%E5%BA%8F%E9%9B%86%E5%90%88"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12V3h9l9 9-9 9z"/><circle cx="8" cy="8" r="1.5"/></svg>有序集合</a><a href="../index.html#tag%3A%E5%84%AA%E5%85%88%E4%BD%87%E5%88%97"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12V3h9l9 9-9 9z"/><circle cx="8" cy="8" r="1.5"/></svg>優先佇列</a></p>
     <h2 class="sec" id="code">C++ 解答 <a class="dl" href="../solutions/1606-find-servers-that-handled-most-requests.cpp" download>下載 .cpp</a></h2>
-    <div class="code"><div class="pane" data-pane="0"><div class="pane-bar"><span class="dots"><i></i><i></i><i></i></span><span>C++ · 解答</span><button class="copy" type="button">複製</button></div><pre><code class="language-cpp">class Solution {
+    <div class="code"><div class="tabs" role="tablist"><button role="tab" aria-selected="true" data-tab="0">set + 最小堆積</button><button role="tab" aria-selected="false" data-tab="1">另解：只用兩個堆積</button></div><div class="pane" data-pane="0"><div class="pane-bar"><span class="dots"><i></i><i></i><i></i></span><span>C++</span><button class="copy" type="button">複製</button></div><pre><code class="language-cpp">class Solution {
 public:
     vector&lt;int&gt; busiestServers(int k, vector&lt;int&gt;&amp; arrival, vector&lt;int&gt;&amp; load) {
         set&lt;int&gt; avail;                                   // 空閒伺服器的編號
@@ -91,6 +91,29 @@ public:
             auto it = avail.lower_bound(i % k);
             if (it == avail.end()) it = avail.begin();    // 繞回開頭
             int s = *it; avail.erase(it);
+            cnt[s]++;
+            busy.push({(long long)arrival[i] + load[i], s});
+        }
+        int mx = *max_element(cnt.begin(), cnt.end());
+        vector&lt;int&gt; ans;
+        for (int i = 0; i &lt; k; i++) if (cnt[i] == mx) ans.push_back(i);
+        return ans;
+    }
+};
+</code></pre></div><div class="pane" data-pane="1" hidden><div class="pane-bar"><span class="dots"><i></i><i></i><i></i></span><span>C++</span><button class="copy" type="button">複製</button></div><pre><code class="language-cpp">class Solution {
+public:
+    vector&lt;int&gt; busiestServers(int k, vector&lt;int&gt;&amp; arrival, vector&lt;int&gt;&amp; load) {
+        priority_queue&lt;int, vector&lt;int&gt;, greater&lt;&gt;&gt; avail;   // 空閒伺服器的「排隊號碼」
+        for (int i = 0; i &lt; k; i++) avail.push(i);           // 一開始號碼就是編號
+        priority_queue&lt;pair&lt;long long,int&gt;, vector&lt;pair&lt;long long,int&gt;&gt;, greater&lt;&gt;&gt; busy;  // (結束時間, 編號)
+        vector&lt;int&gt; cnt(k, 0);
+        for (int i = 0; i &lt; arrival.size(); i++) {
+            while (!busy.empty() &amp;&amp; busy.top().first &lt;= arrival[i]) {
+                int id = busy.top().second; busy.pop();
+                avail.push(i + ((id - i) % k + k) % k);    // 號碼 = 從 i 往後數第一個 ≡ id (mod k) 的數
+            }
+            if (avail.empty()) continue;                      // 全部在忙：丟掉
+            int s = avail.top() % k; avail.pop();             // 號碼最小 = 順時針最早遇到
             cnt[s]++;
             busy.push({(long long)arrival[i] + load[i], s});
         }

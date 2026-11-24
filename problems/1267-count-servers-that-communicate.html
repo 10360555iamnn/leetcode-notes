@@ -34,7 +34,7 @@
     <h1>1267. Count Servers that Communicate</h1>
     <p class="banner-sub">統計參與通信的伺服器</p>
     <div class="art-meta">
-      <span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>2026-11-08</span><span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>10 分鐘</span><span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 8l-5 4 5 4M16 8l5 4-5 4M14 5l-4 14"/></svg>1 段程式碼</span><span class="lv medium">Medium</span>
+      <span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>2026-11-08</span><span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>10 分鐘</span><span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 8l-5 4 5 4M16 8l5 4-5 4M14 5l-4 14"/></svg>3 段程式碼</span><span class="lv medium">Medium</span>
     </div>
   </div>
 </section>
@@ -63,7 +63,7 @@
 </div>
 <div class="side-card widget toc">
   <h3><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg>目錄</h3>
-  <ol><li><a href="#video">講解影片</a></li><li><a href="#notes">重點整理</a></li><li><a href="#code">C++ 解答</a></li></ol>
+  <ol><li><a href="#video">講解影片</a></li><li><a href="#notes">重點整理</a></li><li><a href="#code">C++ 解答</a></li><li class="sub"><a href="#code" data-goto-tab="0">計數（本集解法）</a></li><li class="sub"><a href="#code" data-goto-tab="1">另解一：深度優先搜尋</a></li><li class="sub"><a href="#code" data-goto-tab="2">另解二：並查集</a></li></ol>
 </div>
 </div></aside>
 <main class="main">
@@ -76,7 +76,7 @@
     <p>先數每一列、每一行各有幾台伺服器；一台伺服器只要所在的列或行超過一台，就能通訊。也介紹看成圖、DFS、並查集的另解。</p>
     <p class="art-tags"><a href="../index.html#tag%3A%E8%A8%88%E6%95%B8"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12V3h9l9 9-9 9z"/><circle cx="8" cy="8" r="1.5"/></svg>計數</a><a href="../index.html#tag%3A%E7%9F%A9%E9%99%A3"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12V3h9l9 9-9 9z"/><circle cx="8" cy="8" r="1.5"/></svg>矩陣</a></p>
     <h2 class="sec" id="code">C++ 解答 <a class="dl" href="../solutions/1267-count-servers-that-communicate.cpp" download>下載 .cpp</a></h2>
-    <div class="code"><div class="pane" data-pane="0"><div class="pane-bar"><span class="dots"><i></i><i></i><i></i></span><span>C++ · 解答</span><button class="copy" type="button">複製</button></div><pre><code class="language-cpp">class Solution {
+    <div class="code"><div class="tabs" role="tablist"><button role="tab" aria-selected="true" data-tab="0">計數（本集解法）</button><button role="tab" aria-selected="false" data-tab="1">另解一：深度優先搜尋</button><button role="tab" aria-selected="false" data-tab="2">另解二：並查集</button></div><div class="pane" data-pane="0"><div class="pane-bar"><span class="dots"><i></i><i></i><i></i></span><span>C++</span><button class="copy" type="button">複製</button></div><pre><code class="language-cpp">class Solution {
 public:
     int countServers(vector&lt;vector&lt;int&gt;&gt;&amp; grid) {
         int m = grid.size(), n = grid[0].size();
@@ -92,6 +92,55 @@ public:
             for (int j = 0; j &lt; n; j++)
                 if (grid[i][j] == 1 &amp;&amp; (rowCnt[i] &gt; 1 || colCnt[j] &gt; 1))
                     ans++;
+        return ans;
+    }
+};
+</code></pre></div><div class="pane" data-pane="1" hidden><div class="pane-bar"><span class="dots"><i></i><i></i><i></i></span><span>C++</span><button class="copy" type="button">複製</button></div><pre><code class="language-cpp">class Solution {
+    int m, n;
+    vector&lt;vector&lt;int&gt;&gt; g;
+    int dfs(int r, int c) {                         // 回傳這個連通塊有幾台伺服器
+        g[r][c] = 0;                                // 走過就標記掉
+        int size = 1;
+        for (int j = 0; j &lt; n; j++) if (g[r][j]) size += dfs(r, j);   // 同一列
+        for (int i = 0; i &lt; m; i++) if (g[i][c]) size += dfs(i, c);   // 同一行
+        return size;
+    }
+public:
+    int countServers(vector&lt;vector&lt;int&gt;&gt;&amp; grid) {
+        g = grid; m = g.size(); n = g[0].size();
+        int ans = 0;
+        for (int i = 0; i &lt; m; i++)
+            for (int j = 0; j &lt; n; j++)
+                if (g[i][j]) {
+                    int size = dfs(i, j);
+                    if (size &gt; 1) ans += size;      // 連通塊大小 &gt; 1 才能通訊
+                }
+        return ans;
+    }
+};
+</code></pre></div><div class="pane" data-pane="2" hidden><div class="pane-bar"><span class="dots"><i></i><i></i><i></i></span><span>C++</span><button class="copy" type="button">複製</button></div><pre><code class="language-cpp">class Solution {
+    vector&lt;int&gt; parent;
+    int find(int x) { return parent[x] == x ? x : parent[x] = find(parent[x]); }
+    void unite(int a, int b) { parent[find(a)] = find(b); }
+public:
+    int countServers(vector&lt;vector&lt;int&gt;&gt;&amp; grid) {
+        int m = grid.size(), n = grid[0].size();
+        parent.resize(m * n);
+        iota(parent.begin(), parent.end(), 0);
+        vector&lt;int&gt; rowFirst(m, -1), colFirst(n, -1);   // 每列、每行第一台伺服器
+        for (int i = 0; i &lt; m; i++)
+            for (int j = 0; j &lt; n; j++)
+                if (grid[i][j]) {
+                    int id = i * n + j;
+                    if (rowFirst[i] == -1) rowFirst[i] = id; else unite(id, rowFirst[i]);
+                    if (colFirst[j] == -1) colFirst[j] = id; else unite(id, colFirst[j]);
+                }
+        unordered_map&lt;int, int&gt; size;                    // 每個連通塊的大小
+        for (int i = 0; i &lt; m; i++)
+            for (int j = 0; j &lt; n; j++)
+                if (grid[i][j]) size[find(i * n + j)]++;
+        int ans = 0;
+        for (auto&amp; [root, s] : size) if (s &gt; 1) ans += s;
         return ans;
     }
 };
