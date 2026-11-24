@@ -373,6 +373,9 @@ kbd { display: inline-block; min-width: 20px; margin-right: 3px; padding: 0 5px;
   .posts { gap: 20px; }
   .pane pre { font-size: 12.5px; padding: 12px; }
   .about-stats { grid-template-columns: repeat(2, 1fr); }
+  .pr-tabs { flex-wrap: nowrap; gap: 4px; }
+  .pr-tabs button { flex: 1 1 0; justify-content: center; gap: 3px; padding: 6px 4px; font-size: 14px; white-space: nowrap; }
+  .pr-tabs button svg { width: 14px; height: 14px; flex-shrink: 0; }
   .lv-boxes { flex-direction: row; min-width: 0; width: 100%; }
   .lv-box { flex: 1; padding: 8px 6px; }
   .pr-list li { grid-template-columns: 40px 1fr auto; gap: 8px; padding: 10px 8px; }
