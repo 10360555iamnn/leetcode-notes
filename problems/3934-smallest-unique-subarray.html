@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3934. Smallest Unique Subarray 最短唯一子陣列 · 每日 LeetCode 筆記</title>
+<meta name="description" content="暴力做法是長度從 1 開始試，把每段子陣列放進 map 數次數，O(n³) 會超時。觀察單調性：長度 L 有只出現一次的子陣列，更長的也一定有，所以可以二分搜尋長度。再用滾動雜湊（前綴雜湊、雙模數）把每段子陣列變成一個數，O(1) 算出來，總共 O(n log n)。">
+<link rel="icon" href="../assets/img/avatar.jpg" type="image/jpeg">
+<script>try{var t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Mulish:wght@400;600;700&family=Noto+Sans+TC:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/style.css?v=9cc3f4fa">
+</head>
+<body data-root="../">
+<header class="nav" id="nav">
+  <a class="nav-brand" href="../index.html"><img src="../assets/img/avatar.jpg" alt="">每日 LeetCode 筆記</a>
+  <nav class="nav-links" id="nav-links">
+    <a href="../index.html"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/></svg>首頁</a>
+    <a href="../problems.html"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg>題單</a>
+    <a href="../index.html#%E7%B6%93%E5%85%B8%E9%A1%8C"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h6l2 2h10v11H3z"/></svg>經典題</a>
+    <a href="../index.html#%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A1%8C"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h6l2 2h10v11H3z"/></svg>每日一題</a>
+    <a href="../index.html#%E5%8B%95%E6%85%8B%E8%A6%8F%E5%8A%83%E5%88%B7%E9%A1%8C%E5%96%AE"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h6l2 2h10v11H3z"/></svg>動態規劃刷題單</a>
+    <a href="../about.html"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg>關於</a>
+    <a href="https://www.youtube.com/@nn-leetcode" target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9l5 3-5 3z" fill="currentColor"/></svg>YouTube</a>
+  </nav>
+  <div class="nav-tools">
+    <button class="icon-btn" id="search-btn" type="button" aria-label="搜尋（Ctrl+K）"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg></button>
+    <button class="icon-btn" id="theme-btn" type="button" aria-label="切換深色模式"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></svg></button>
+    <button class="icon-btn nav-menu" id="menu-btn" type="button" aria-label="選單" aria-expanded="false"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+  </div>
+</header>
+<section class="banner post-banner" style="--banner:url('img/3934-smallest-unique-subarray.jpg')">
+  <div class="banner-inner">
+    <h1>3934. Smallest Unique Subarray</h1>
+    <p class="banner-sub">最短唯一子陣列</p>
+    <div class="art-meta">
+      <span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>2026-11-25</span><span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>11 分鐘</span><span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 8l-5 4 5 4M16 8l5 4-5 4M14 5l-4 14"/></svg>2 段程式碼</span><span id="busuanzi_container_page_pv" style="display:none"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg><span id="busuanzi_value_page_pv">–</span> 次閱讀</span><span class="lv hard">Hard</span>
+    </div>
+  </div>
+</section>
+<div class="container">
+<aside class="sidebar"><div class="sticky"><div class="side-card profile">
+  <img class="avatar" src="../assets/img/avatar.jpg" alt="頭像">
+  <div class="author">每日leetcode</div>
+  <div class="bio">用手寫筆記講解 LeetCode</div>
+  <div class="stats">
+    <a href="../index.html"><span>影片</span><b>24</b></a>
+    <a href="../index.html#categories"><span>系列</span><b>3</b></a>
+    <a href="../problems.html"><span>題目</span><b>29</b></a>
+  </div>
+  <div class="social">
+    <a href="https://www.youtube.com/@nn-leetcode" target="_blank" rel="noopener" aria-label="YouTube"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9l5 3-5 3z" fill="currentColor"/></svg></a>
+    <a href="https://github.com/10360555iamnn/leetcode-notes" target="_blank" rel="noopener" aria-label="GitHub"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-4 1.5-4-2-6-2.5M15 21v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1-.3-3.4 1.3a11.6 11.6 0 0 0-6 0C6.8 2.8 5.8 3.1 5.8 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4.4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg></a>
+  </div>
+  <nav class="side-nav">
+    <a class="" href="../index.html"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/></svg>首頁</a>
+    <a class="" href="../index.html#%E7%B6%93%E5%85%B8%E9%A1%8C" data-series-link="經典題"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h6l2 2h10v11H3z"/></svg>經典題<em>1</em></a>
+    <a class="on" href="../index.html#%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A1%8C" data-series-link="每日一題"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h6l2 2h10v11H3z"/></svg>每日一題<em>19</em></a>
+    <a class="" href="../index.html#%E5%8B%95%E6%85%8B%E8%A6%8F%E5%8A%83%E5%88%B7%E9%A1%8C%E5%96%AE" data-series-link="動態規劃刷題單"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h6l2 2h10v11H3z"/></svg>動態規劃刷題單<em>4</em></a>
+    <a class="" href="../problems.html"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg>題目清單<em>29</em></a>
+    <a class="" href="../about.html"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg>關於</a>
+  </nav>
+</div>
+<div class="side-card widget toc">
+  <h3><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg>目錄</h3>
+  <ol><li><a href="#video">講解影片</a></li><li><a href="#notes">重點整理</a></li><li><a href="#code">C++ 解答</a></li><li class="sub"><a href="#code" data-goto-tab="0">做法一：暴力 O(n³)</a></li><li class="sub"><a href="#code" data-goto-tab="1">做法二：二分搜尋 + 滾動雜湊 O(n log n)</a></li></ol>
+</div>
+</div></aside>
+<main class="main">
+  <article class="article">
+    <p class="art-cat"><a href="../index.html#%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A1%8C"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h6l2 2h10v11H3z"/></svg>每日一題</a></p>
+    <h2 class="sec" id="video">講解影片</h2>
+    <div class="video"><iframe src="https://www.youtube-nocookie.com/embed/Tg2RFl7oe_Y" title="3934. Smallest Unique Subarray" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
+    <p class="art-links"><a class="btn lc" href="https://leetcode.com/problems/smallest-unique-subarray/" target="_blank" rel="noopener">LeetCode 3934 <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v6H4V6h6"/></svg></a><a class="btn yt" href="https://www.youtube.com/watch?v=Tg2RFl7oe_Y" target="_blank" rel="noopener">在 YouTube 觀看 <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v6H4V6h6"/></svg></a></p>
+    <h2 class="sec" id="notes">重點整理</h2>
+    <p>暴力做法是長度從 1 開始試，把每段子陣列放進 map 數次數，O(n³) 會超時。觀察單調性：長度 L 有只出現一次的子陣列，更長的也一定有，所以可以二分搜尋長度。再用滾動雜湊（前綴雜湊、雙模數）把每段子陣列變成一個數，O(1) 算出來，總共 O(n log n)。</p>
+    <p class="art-tags"><a href="../index.html#tag%3A%E4%BA%8C%E5%88%86%E6%90%9C%E5%B0%8B"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12V3h9l9 9-9 9z"/><circle cx="8" cy="8" r="1.5"/></svg>二分搜尋</a><a href="../index.html#tag%3A%E6%BB%BE%E5%8B%95%E9%9B%9C%E6%B9%8A"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12V3h9l9 9-9 9z"/><circle cx="8" cy="8" r="1.5"/></svg>滾動雜湊</a><a href="../index.html#tag%3A%E9%9B%9C%E6%B9%8A%E8%A1%A8"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12V3h9l9 9-9 9z"/><circle cx="8" cy="8" r="1.5"/></svg>雜湊表</a></p>
+    <h2 class="sec" id="code">C++ 解答 <a class="dl" href="../solutions/3934-smallest-unique-subarray.cpp" download>下載 .cpp</a></h2>
+    <div class="code"><div class="tabs" role="tablist"><button role="tab" aria-selected="true" data-tab="0">做法一：暴力 O(n³)</button><button role="tab" aria-selected="false" data-tab="1">做法二：二分搜尋 + 滾動雜湊 O(n log n)</button></div><div class="pane" data-pane="0"><div class="pane-bar"><span class="dots"><i></i><i></i><i></i></span><span>C++</span><button class="copy" type="button">複製</button></div><pre><code class="language-cpp">class Solution {
+public:
+    int smallestUniqueSubarray(vector&lt;int&gt;&amp; nums) {   // 暴力做法：O(n³)，會超時，僅供理解
+        int n = nums.size();
+        for (int L = 1; L &lt;= n; L++) {          // 長度從 1 開始試
+            map&lt;vector&lt;int&gt;, int&gt; cnt;          // 每一種出現幾次
+            for (int i = 0; i + L &lt;= n; i++) {
+                vector&lt;int&gt; sub(nums.begin() + i, nums.begin() + i + L);
+                cnt[sub]++;
+            }
+            for (auto&amp; [sub, c] : cnt)
+                if (c == 1) return L;           // 只出現一次
+        }
+        return n;
+    }
+};
+</code></pre></div><div class="pane" data-pane="1" hidden><div class="pane-bar"><span class="dots"><i></i><i></i><i></i></span><span>C++</span><button class="copy" type="button">複製</button></div><pre><code class="language-cpp">class Solution {
+public:
+    int smallestUniqueSubarray(vector&lt;int&gt;&amp; nums) {
+        typedef long long ll;
+        const ll M1 = 1000000007, M2 = 998244353, B = 100003;
+        int n = nums.size();
+        vector&lt;ll&gt; h1(n + 1, 0), h2(n + 1, 0), p1(n + 1, 1), p2(n + 1, 1);
+        for (int i = 0; i &lt; n; i++) {
+            h1[i + 1] = (h1[i] * B + nums[i]) % M1;   // 前綴雜湊
+            h2[i + 1] = (h2[i] * B + nums[i]) % M2;
+            p1[i + 1] = p1[i] * B % M1;               // B 的次方
+            p2[i + 1] = p2[i] * B % M2;
+        }
+        auto hasUnique = [&amp;](int L) {     // 長度 L 有沒有只出現一次的？
+            unordered_map&lt;ll, int&gt; cnt;
+            for (int i = 0; i + L &lt;= n; i++) {
+                ll a = ((h1[i + L] - h1[i] * p1[L]) % M1 + M1) % M1;
+                ll b = ((h2[i + L] - h2[i] * p2[L]) % M2 + M2) % M2;
+                cnt[a * M2 + b]++;        // 兩個雜湊值合成一個
+            }
+            for (auto&amp; [key, c] : cnt)
+                if (c == 1) return true;
+            return false;
+        };
+        int lo = 1, hi = n;               // 長度 n 一定只出現一次
+        while (lo &lt; hi) {
+            int mid = (lo + hi) / 2;
+            if (hasUnique(mid)) hi = mid; // 可以 → 答案 ≤ mid
+            else lo = mid + 1;            // 不行 → 答案 &gt; mid
+        }
+        return lo;
+    }
+};
+</code></pre></div></div>
+  </article>
+  <nav class="art-nav">
+      <a class="prev" href="3411-maximum-subarray-with-equal-products.html" style="--cover:url('img/3411-maximum-subarray-with-equal-products.jpg')"><small><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>上一篇</small><b>3411. Maximum Subarray With Equal Products</b></a>
+      <span></span>
+    </nav>
+</main>
+</div>
+<footer class="foot">
+  <div>© 2026 每日leetcode · 影片在 <a href="https://www.youtube.com/@nn-leetcode" target="_blank" rel="noopener">YouTube</a> · 原始碼在 <a href="https://github.com/10360555iamnn/leetcode-notes" target="_blank" rel="noopener">GitHub</a></div>
+  <div class="foot-small">版面參考 hugo-theme-reimu（MIT） · 解答使用 C++</div>
+  <div class="foot-small foot-count" id="busuanzi_container_site_pv" style="display:none"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>本站總訪問量 <b id="busuanzi_value_site_pv">–</b> 次<span id="busuanzi_container_site_uv" style="display:none"> · 訪客數 <b id="busuanzi_value_site_uv">–</b> 人</span></div>
+</footer>
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="search" id="search" hidden>
+  <div class="search-box" role="dialog" aria-modal="true" aria-label="搜尋">
+    <div class="search-head"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input id="search-input" type="search" placeholder="搜尋題號、題名、標籤…（例如 1882、堆積、DP）" autocomplete="off"><button class="icon-btn" id="search-close" type="button" aria-label="關閉"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+    <ul class="search-results" id="search-results"></ul>
+    <div class="search-foot"><span><kbd>↑</kbd><kbd>↓</kbd> 選擇</span><span><kbd>Enter</kbd> 開啟</span><span><kbd>Esc</kbd> 關閉</span></div>
+  </div>
+</div>
+<script src="../assets/search-index.js?v=9cc3f4fa"></script>
+<script src="../assets/site.js?v=9cc3f4fa"></script>
+</body>
+</html>
