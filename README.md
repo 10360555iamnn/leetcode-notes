@@ -7,6 +7,7 @@ LeetCode 中文講解影片與 C++ 解答。
 
 | 題目 | 難度 | 影片 |
 |---|---|---|
+| 3360. Stone Removal Game 移除石頭遊戲 | Easy | [觀看](https://www.youtube.com/watch?v=iNjBibug5Es) |
 | 3934. Smallest Unique Subarray 最短唯一子陣列 | Hard | [觀看](https://www.youtube.com/watch?v=Tg2RFl7oe_Y) |
 | 3411. Maximum Subarray With Equal Products 最長乘積等價子陣列 | Easy | [觀看](https://www.youtube.com/watch?v=txAIM3NaULQ) |
 | 1352. Product of the Last K Numbers 最後 K 個數的乘積 | Medium | [觀看](https://www.youtube.com/watch?v=G0ICY93GcX4) |
